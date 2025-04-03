@@ -127,12 +127,12 @@ export default function AssistantSection() {
           </p>
         </div>
 
-        {/* Quick Action Chips - One line for large screens with equal spacing */}
-        <div className="flex flex-nowrap overflow-x-auto md:justify-center space-x-4 md:space-x-6 mb-10 pb-2 px-1">
+        {/* Quick Action Chips - Responsive layout */}
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-10">
           {suggestions.map((suggestion, index) => (
             <button 
               key={index}
-              className="suggestion-button flex-none transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] bg-[#003848]/50 border border-[#30D5E8]/30 text-white px-5 py-2 rounded-full text-sm hover:bg-[#003848] hover:border-[#30D5E8]/50 hover:scale-105 hover:glow"
+              className="suggestion-button transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] bg-[#003848]/50 border border-[#30D5E8]/30 text-white px-5 py-2 rounded-full text-sm hover:bg-[#003848] hover:border-[#30D5E8]/50 hover:scale-105 hover:glow"
               onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion}
