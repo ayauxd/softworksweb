@@ -6,7 +6,7 @@ export default function SoftworksLogo({ className = "w-10 h-10" }: SoftworksLogo
   return (
     <div className={className}>
       <img 
-        src="/assets/softworks-logo.png" 
+        src="/assets/softworks-logo-transparent.png" 
         alt="Softworks Logo" 
         className="w-full h-full object-contain" 
       />
