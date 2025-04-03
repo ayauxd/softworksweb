@@ -1,0 +1,111 @@
+🔹 Build a professional, high-conversion landing page for **Softworks Trading Company** using **React** and **Tailwind CSS**.
+
+---
+
+### 📌 Reference Materials (Attached):
+- ✅ Screenshot of the design (landing page reference)
+- ✅ PNG files for the logo and favicon
+
+➡️ Convert the logo to **SVG** format for scalability and clean rendering.  
+➡️ Convert the favicon to **ICO** format for browser tab compatibility.
+
+---
+
+## 🔸 1. Layout Structure
+
+### ✅ Navigation Header:
+- Logo (left):
+  - Text: `Softworks` (bold)
+  - Subtext: `TRADING COMPANY` (serif, small caps)
+- Menu Items (right):
+  - `Home`, `Services`, `How It Works`, `Case Studies`, `About`, `Contact`
+- Sticky top on scroll
+- Responsive for mobile and desktop
+
+---
+
+### ✅ Hero Section:
+- **Left Column:**
+  - **Headline (H1):**  
+    `Design Autonomous Systems That Think, Act, and Scale.`
+  - **Subheadline:**  
+    `We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows.`
+  - **CTA Button:**  
+    - Text: `Schedule a Consultation`  
+    - Style: Red background, white text, rounded, with hover effect
+
+- **Right Column:**
+  - Add a glowing "neural tree" graphic (from the screenshot)
+  - Use subtle animated glow or hover state to add visual depth
+
+---
+
+### ✅ AI Assistant Section (Interactive):
+- Headline: `Hello`
+- Subtext: `How can I assist you in optimizing your workflows today?`
+- **Suggestion Buttons** (Tailwind-styled, pill shape, clickable):
+  - `Integrate agentic AI`
+  - `Automate business process`
+  - `Tune large language`
+  - `Enhance business`
+  - `Enhance workflow arch`
+
+- **Input Field:**
+  - Placeholder: `Ask how we can assist you`
+  - Full-width, white text on dark background, rounded corners
+
+- **Bottom Action Buttons:**
+  - Left: Circular button with phone icon – label: `Talk to an agent`
+  - Right: Microphone icon (voice input placeholder)
+
+---
+
+## 🔸 2. Design & Style Guide
+
+- Background: Gradient from `#00202e` to `#003848`
+- Font: Modern sans-serif (`Inter`, `Urbanist`, or similar)
+- Text Hierarchy:
+  - H1: `text-4xl` or `text-5xl`, bold
+  - Subtext: `text-slate-300`
+- Colors:
+  - Primary CTA: `bg-red-500`, hover: `bg-red-600`
+  - Accent: Blue glow and soft gradients
+- Icons: Use `Lucide`, `Heroicons`, or similar
+
+---
+
+## 🔸 3. Functional Requirements
+
+- Mobile responsive design
+- Smooth button hover effects
+- Fully semantic HTML
+- Lazy load any images or animations
+- Converted SVG logo in `<Header>` and ICO favicon in `<head>`
+
+---
+
+## 🔸 4. Project Structure
+
+- `/src/components/`:
+  - `Header.jsx`
+  - `Hero.jsx`
+  - `AssistantSection.jsx`
+- `App.jsx`: Wrap components
+- `index.html`: Include favicon link
+- `tailwind.config.js`: Extend if needed for colors or fonts
+- `/public`: Include converted logo.svg and favicon.ico
+
+---
+
+## 🔸 5. Deployment
+
+- Prepare for hosting on **Vercel** or **Netlify**
+- Output should include a `README.md` with:
+  - Setup instructions
+  - Favicon and logo asset notes
+  - Deployment steps
+
+---
+
+### 🎯 Goal:
+Recreate the attached landing page with pixel-accurate spacing, clear copy, and component structure. Ensure it’s scalable, responsive, and ready for real-world consulting lead generation. Keep the design professional, tech-forward, and clean.
