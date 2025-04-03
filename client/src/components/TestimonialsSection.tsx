@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="py-20 px-6 lg:px-12 bg-[#00202e]">
+    <section id="testimonials-section" className="py-20 px-6 lg:px-12 bg-[#00202e]">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl lg:text-4xl font-bold text-center mb-16">What Our Clients Say</h2>
         
@@ -53,7 +53,7 @@ export default function TestimonialsSection() {
             <div className="flex justify-between mt-8">
               <button
                 onClick={prevTestimonial}
-                className="p-2 rounded-full bg-[#003848] hover:bg-[#004858] border border-[#30D5E8]/20 transition-colors"
+                className="p-2 rounded-full bg-[#003848] hover:bg-[#004858] border border-[#30D5E8]/20 transition-colors hover:shadow-[0_0_15px_rgba(48,213,232,0.3)]"
                 aria-label="Previous testimonial"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -64,8 +64,8 @@ export default function TestimonialsSection() {
                   <button
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`w-3 h-3 rounded-full ${
-                      index === currentIndex ? "bg-[#30D5E8]" : "bg-[#30D5E8]/30"
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentIndex ? "bg-[#30D5E8] scale-125" : "bg-[#30D5E8]/30"
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   ></button>
@@ -74,7 +74,7 @@ export default function TestimonialsSection() {
               
               <button
                 onClick={nextTestimonial}
-                className="p-2 rounded-full bg-[#003848] hover:bg-[#004858] border border-[#30D5E8]/20 transition-colors"
+                className="p-2 rounded-full bg-[#003848] hover:bg-[#004858] border border-[#30D5E8]/20 transition-colors hover:shadow-[0_0_15px_rgba(48,213,232,0.3)]"
                 aria-label="Next testimonial"
               >
                 <ChevronRight className="w-5 h-5" />

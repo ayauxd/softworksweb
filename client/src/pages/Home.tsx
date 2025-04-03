@@ -4,6 +4,7 @@ import AssistantSection from "@/components/AssistantSection";
 import MVPSection from "@/components/MVPSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
+import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 
@@ -34,6 +35,7 @@ export default function Home() {
         <AssistantSection />
         <TestimonialsSection />
         <CTASection />
+        <BlogSection />
       </main>
       <Footer />
     </div>

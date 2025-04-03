@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ArrowUp, X } from "lucide-react";
 import SoftworksLogo from "./SoftworksLogo";
 
 interface HeaderProps {
@@ -7,36 +8,67 @@ interface HeaderProps {
 
 export default function Header({ isSticky }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 500) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       <header 
-        className={`py-4 px-6 lg:px-12 fixed w-full top-0 bg-[#00202e]/90 backdrop-blur-sm z-10 transition-all duration-300 ${
+        className={`py-4 px-6 lg:px-12 fixed w-full top-0 bg-[#00202e]/90 backdrop-blur-sm z-50 transition-all duration-300 ${
           isSticky ? "py-3 shadow-lg" : "py-4"
         }`}
       >
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
-            <div className="flex items-center">
+            <a 
+              href="#hero" 
+              onClick={(e) => scrollToSection('hero', e)}
+              className="flex items-center"
+            >
               <SoftworksLogo className="w-10 h-10 mr-3" />
               <div>
                 <h1 className="text-xl font-bold">Softworks</h1>
                 <p className="text-xs tracking-widest text-slate-300">TRADING COMPANY</p>
               </div>
-            </div>
+            </a>
             
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="font-medium hover:text-[#30D5E8] transition-colors">Home</a>
-              <a href="#" className="font-medium hover:text-[#30D5E8] transition-colors">Services</a>
-              <a href="#" className="font-medium hover:text-[#30D5E8] transition-colors">How It Works</a>
-              <a href="#" className="font-medium hover:text-[#30D5E8] transition-colors">Case Studies</a>
-              <a href="#" className="font-medium hover:text-[#30D5E8] transition-colors">About</a>
-              <a href="#" className="font-medium hover:text-[#30D5E8] transition-colors">Contact</a>
+              <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Home</a>
+              <a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Services</a>
+              <a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="font-medium hover:text-[#30D5E8] transition-colors">How It Works</a>
+              <a href="#testimonials-section" onClick={(e) => scrollToSection('testimonials-section', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Case Studies</a>
+              <a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Contact</a>
             </nav>
             
             {/* Mobile Menu Button */}
@@ -45,9 +77,13 @@ export default function Header({ isSticky }: HeaderProps) {
               aria-label="Menu"
               onClick={toggleMobileMenu}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
@@ -56,14 +92,24 @@ export default function Header({ isSticky }: HeaderProps) {
       {/* Mobile Menu */}
       <div className={`fixed inset-0 bg-[#00202e]/95 z-20 pt-20 px-6 md:hidden ${isMobileMenuOpen ? "block" : "hidden"}`}>
         <nav className="flex flex-col space-y-6 text-center">
-          <a href="#" className="py-2 text-lg font-medium">Home</a>
-          <a href="#" className="py-2 text-lg font-medium">Services</a>
-          <a href="#" className="py-2 text-lg font-medium">How It Works</a>
-          <a href="#" className="py-2 text-lg font-medium">Case Studies</a>
-          <a href="#" className="py-2 text-lg font-medium">About</a>
-          <a href="#" className="py-2 text-lg font-medium">Contact</a>
+          <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="py-2 text-lg font-medium">Home</a>
+          <a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="py-2 text-lg font-medium">Services</a>
+          <a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="py-2 text-lg font-medium">How It Works</a>
+          <a href="#testimonials-section" onClick={(e) => scrollToSection('testimonials-section', e)} className="py-2 text-lg font-medium">Case Studies</a>
+          <a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="py-2 text-lg font-medium">Contact</a>
         </nav>
       </div>
+
+      {/* Scroll to top button */}
+      {showScrollTop && (
+        <button 
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-[#30D5E8] text-[#0C1F25] rounded-full p-3 shadow-lg hover:bg-[#4cdfef] transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] z-50"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="w-5 h-5" />
+        </button>
+      )}
     </>
   );
 }

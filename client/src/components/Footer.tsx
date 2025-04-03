@@ -4,6 +4,14 @@ import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react";
 export default function Footer() {
   const year = new Date().getFullYear();
   
+  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-[#001824] text-white pt-16 pb-8 px-6 lg:px-12">
       <div className="container mx-auto">
@@ -18,7 +26,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-slate-300 mb-6">
-              Designing intelligent autonomous systems that transform business operations and drive efficiency.
+              Designing intelligent autonomous systems that transform operations and drive efficiency.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-colors">
@@ -37,12 +45,11 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Home</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Services</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">How It Works</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Case Studies</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">About</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Contact</a></li>
+              <li><a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Home</a></li>
+              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Services</a></li>
+              <li><a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">How It Works</a></li>
+              <li><a href="#testimonials-section" onClick={(e) => scrollToSection('testimonials-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Case Studies</a></li>
+              <li><a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Contact</a></li>
             </ul>
           </div>
           
@@ -50,11 +57,10 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Services</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">AI Integration</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Workflow Automation</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">LLM Fine-Tuning</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Business Analytics</a></li>
-              <li><a href="#" className="text-slate-300 hover:text-[#30D5E8] transition-colors">Custom Solutions</a></li>
+              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">AI Integration</a></li>
+              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Workflow Automation</a></li>
+              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">LLM Tuning</a></li>
+              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Business Analytics</a></li>
             </ul>
           </div>
           

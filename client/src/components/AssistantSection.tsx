@@ -118,7 +118,7 @@ export default function AssistantSection() {
   };
 
   return (
-    <section className="py-20 px-6 lg:px-12 bg-[#0C1F25]">
+    <section id="chatbot-section" className="py-20 px-6 lg:px-12 bg-[#0C1F25]">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-8">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">How can we help you today?</h2>
