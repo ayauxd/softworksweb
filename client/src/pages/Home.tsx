@@ -1,6 +1,10 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import AssistantSection from "@/components/AssistantSection";
+import MVPSection from "@/components/MVPSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import CTASection from "@/components/CTASection";
+import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -22,12 +26,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#00202e] bg-gradient-to-br from-[#00202e] to-[#003848] text-white">
+    <div className="min-h-screen bg-[#00202e] text-white">
       <Header isSticky={isScrolled} />
       <main>
         <Hero />
+        <MVPSection />
         <AssistantSection />
+        <TestimonialsSection />
+        <CTASection />
       </main>
+      <Footer />
     </div>
   );
 }
