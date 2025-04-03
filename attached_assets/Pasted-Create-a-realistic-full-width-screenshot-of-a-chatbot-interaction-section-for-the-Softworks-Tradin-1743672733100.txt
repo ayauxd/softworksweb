@@ -1,0 +1,66 @@
+Create a realistic, full-width screenshot of a chatbot interaction section for the "Softworks Trading Company" homepage. The design should reflect a professional, modern AI workflow assistant interface with the following layout and behavior:
+
+---
+
+#### 🎯 Section Goal:
+Help users initiate AI-related inquiries or connect with a human AI adoption agent for callback.
+
+---
+
+#### 🧠 Assistant Intro Message:
+- Center-aligned headline: **"How can we help you today?"**
+- Subtext: **"Ask us anything about AI workflows, automation, or agentic system design."**
+- Font: Clean and legible (white/light gray on a dark teal background)
+
+---
+
+#### 🔘 Quick Action Buttons (Chips):
+- Horizontally centered, evenly spaced chips (no overlap)
+- Pill-shaped buttons with subtle glow on hover
+- Text on buttons:
+  - “Integrate agentic AI”
+  - “Automate business process”
+  - “Tune large language model”
+  - “Enhance workflow”
+  - “Book a voice consultation”
+- Align in two neat rows if horizontal spacing is tight
+- Use a soft outline or low-contrast background fill for inactive state
+
+---
+
+#### 📝 Chat Input Field:
+- Full-width rectangular text field, rounded corners
+- Placeholder: **“Type your question here…”**
+- At the far right of the field: **Send button with an upward-facing arrow icon (↑)** in a circular design
+  - On hover: slight glow or bounce animation
+  - Background: teal or electric blue, contrasting with input field
+
+> ❌ Do not include a mic icon.
+
+---
+
+#### 📞 "Talk to an AI Adoption Agent" Section (Below Input):
+- Header: **“Talk to an AI Adoption Agent”**
+- Left side: **Image of a call center desk** (headset, AI branding, or workflow visuals)
+- Right side: Brief copy:
+  > “Not sure where to start with AI in your business? Our AI adoption agents are ready to assist with integration planning, workflow strategy, and custom automation.”
+
+- **Button:** “Speak to an Agent”
+  - On click: simulate a **“Calling...” animation** (1 second)
+  - Then display a **callback form**:
+    - Input 1: “Your Phone Number”
+    - Input 2: “What would you like to discuss?”
+    - Submit Button: “Request Callback”
+
+---
+
+#### 🎨 Visual Style:
+- Background: Dark teal (#0C1F25)
+- Typography: White/light gray for text, strong contrast
+- Button accents: Electric blue, soft gradients, subtle shadows
+- Layout: Minimalist, balanced spacing, mobile-responsive alignment
+- Inspired by ChatGPT, Intercom, and enterprise AI onboarding UIs
+
+---
+
+This mockup should resemble a screenshot from a **real, working landing page**, blending the conversational UI with Softworks’ clean branding and functional goal of scheduling AI consultations or answering automation questions.
