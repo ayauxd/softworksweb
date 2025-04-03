@@ -1,5 +1,5 @@
 import SoftworksLogo from "./SoftworksLogo";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Facebook, Globe } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -29,14 +29,32 @@ export default function Footer() {
               Designing intelligent autonomous systems that transform operations and drive efficiency.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-colors">
+              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-colors">
-                <Twitter className="w-5 h-5" />
+              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-colors">
-                <Github className="w-5 h-5" />
+              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="lucide"
+                >
+                  <path d="M4 4h16v16H4z" />
+                  <path d="M16 8h2V6h-4v4h2z" />
+                  <path d="M8 16h2v-4h4v4h2V8h-8z" />
+                </svg>
+              </a>
+              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                <Globe className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -71,8 +89,8 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 text-[#30D5E8] mr-3 mt-1" />
                 <span className="text-slate-300">
-                  100 Innovation Drive<br />
-                  San Francisco, CA 94103
+                  7901 4TH ST N<br />
+                  ST. PETERSBURG FL 33702
                 </span>
               </li>
               <li className="flex items-center">

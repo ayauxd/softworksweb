@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowUp, X } from "lucide-react";
+import { ArrowUp, X, Linkedin, Facebook, Globe } from "lucide-react";
 import SoftworksLogo from "./SoftworksLogo";
 
 interface HeaderProps {
@@ -63,13 +63,45 @@ export default function Header({ isSticky }: HeaderProps) {
             </a>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Home</a>
-              <a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Services</a>
-              <a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="font-medium hover:text-[#30D5E8] transition-colors">How It Works</a>
-              <a href="#testimonials-section" onClick={(e) => scrollToSection('testimonials-section', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Case Studies</a>
-              <a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="font-medium hover:text-[#30D5E8] transition-colors">Contact</a>
-            </nav>
+            <div className="hidden md:flex items-center">
+              <nav className="flex items-center space-x-8 mr-8">
+                <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="font-medium hover:text-[#30D5E8] transition-all duration-300 hover:scale-105">Home</a>
+                <a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="font-medium hover:text-[#30D5E8] transition-all duration-300 hover:scale-105">Services</a>
+                <a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="font-medium hover:text-[#30D5E8] transition-all duration-300 hover:scale-105">How It Works</a>
+                <a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="font-medium hover:text-[#30D5E8] transition-all duration-300 hover:scale-105">Contact</a>
+              </nav>
+              
+              {/* Social Icons */}
+              <div className="flex space-x-4">
+                <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+                <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className="lucide"
+                  >
+                    <path d="M4 4h16v16H4z" />
+                    <path d="M16 8h2V6h-4v4h2z" />
+                    <path d="M8 16h2v-4h4v4h2V8h-8z" />
+                  </svg>
+                </a>
+                <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+                  <Globe className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
             
             {/* Mobile Menu Button */}
             <button 
@@ -95,16 +127,46 @@ export default function Header({ isSticky }: HeaderProps) {
           <a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="py-2 text-lg font-medium">Home</a>
           <a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="py-2 text-lg font-medium">Services</a>
           <a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="py-2 text-lg font-medium">How It Works</a>
-          <a href="#testimonials-section" onClick={(e) => scrollToSection('testimonials-section', e)} className="py-2 text-lg font-medium">Case Studies</a>
           <a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="py-2 text-lg font-medium">Contact</a>
         </nav>
+        
+        {/* Mobile Social Icons */}
+        <div className="flex justify-center space-x-6 mt-10">
+          <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+            <Linkedin className="w-6 h-6" />
+          </a>
+          <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+            <Facebook className="w-6 h-6" />
+          </a>
+          <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="lucide"
+            >
+              <path d="M4 4h16v16H4z" />
+              <path d="M16 8h2V6h-4v4h2z" />
+              <path d="M8 16h2v-4h4v4h2V8h-8z" />
+            </svg>
+          </a>
+          <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+            <Globe className="w-6 h-6" />
+          </a>
+        </div>
       </div>
 
       {/* Scroll to top button */}
       {showScrollTop && (
         <button 
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-[#30D5E8] text-[#0C1F25] rounded-full p-3 shadow-lg hover:bg-[#4cdfef] transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] z-50"
+          className="fixed bottom-8 right-8 bg-[#30D5E8] text-[#0C1F25] rounded-full p-3 shadow-lg hover:bg-[#4cdfef] transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] z-50 transform hover:scale-110"
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-5 h-5" />

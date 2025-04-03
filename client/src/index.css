@@ -45,6 +45,37 @@ body {
       opacity: 0.3;
     }
   }
+  
+  .hover\:glow:hover {
+    box-shadow: 0 0 15px rgba(48, 213, 232, 0.6);
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  .animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
 }
 
 @layer base {
@@ -54,5 +85,9 @@ body {
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+  }
+  
+  html {
+    scroll-behavior: smooth;
   }
 }

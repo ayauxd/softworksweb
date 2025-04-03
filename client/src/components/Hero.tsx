@@ -1,11 +1,11 @@
 import NeuralTree from "./NeuralTree";
 
 export default function Hero() {
-  const scrollToConsultation = (e: React.MouseEvent) => {
+  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
     e.preventDefault();
-    const consultationSection = document.getElementById('consultation-form');
-    if (consultationSection) {
-      consultationSection.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -18,18 +18,27 @@ export default function Hero() {
               Build Smarter Workflows with Autonomous AI Systems
             </h1>
             <p className="text-slate-300 text-lg mb-8 max-w-xl">
-              We help you rethink operations using intelligent, agentic processes designed to scale without breaking your workflows.
+              We help you rethink operations using intelligent, agentic processes designed to scale.
             </p>
-            <a 
-              href="#consultation-form" 
-              onClick={scrollToConsultation}
-              className="inline-block bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] transform hover:-translate-y-1"
-            >
-              Schedule a Consultation
-            </a>
+            <div className="flex flex-wrap gap-4">
+              <a 
+                href="#consultation-form" 
+                onClick={(e) => scrollToSection('consultation-form', e)}
+                className="inline-block bg-[#EF4444] hover:bg-[#FF6B6B] text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(239,68,68,0.5)] transform hover:-translate-y-1"
+              >
+                Schedule a Consultation
+              </a>
+              <a 
+                href="#mvp-section" 
+                onClick={(e) => scrollToSection('mvp-section', e)}
+                className="inline-block bg-transparent border border-slate-600 hover:border-white text-white font-medium py-3 px-8 rounded-md transition-all duration-300 transform hover:-translate-y-1"
+              >
+                Explore Services
+              </a>
+            </div>
           </div>
           <div className="lg:w-1/2 flex justify-center lg:justify-end">
-            <NeuralTree className="w-full max-w-md" />
+            <NeuralTree className="w-full max-w-md animate-pulse" />
           </div>
         </div>
       </div>

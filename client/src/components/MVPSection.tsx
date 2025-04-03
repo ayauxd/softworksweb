@@ -5,7 +5,7 @@ export default function MVPSection() {
     {
       icon: <Server className="w-10 h-10 text-[#30D5E8] mb-4" />,
       title: "Intelligent Data Processing",
-      description: "Extract actionable insights from millions of data points in real-time."
+      description: "Extract actionable insights from millions of data points in real time."
     },
     {
       icon: <Workflow className="w-10 h-10 text-[#30D5E8] mb-4" />,
@@ -15,24 +15,24 @@ export default function MVPSection() {
     {
       icon: <Code className="w-10 h-10 text-[#30D5E8] mb-4" />,
       title: "API Integration",
-      description: "Connect effortlessly to your tools with robust API support and webhooks."
+      description: "Connect seamlessly to your tools using robust APIs and webhooks."
     }
   ];
 
-  const scrollToConsultation = (e: React.MouseEvent) => {
+  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
     e.preventDefault();
-    const consultationSection = document.getElementById('consultation-form');
-    if (consultationSection) {
-      consultationSection.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <section id="mvp-section" className="py-20 px-6 lg:px-12 bg-[#002836]">
       <div className="container mx-auto">
-        <h2 className="text-3xl lg:text-4xl font-bold text-center mb-4">Our Services</h2>
+        <h2 className="text-3xl lg:text-4xl font-bold text-center mb-4">Minimum Viable Product</h2>
         <p className="text-slate-300 text-lg text-center mb-16 max-w-3xl mx-auto">
-          Start with a lean implementation that delivers immediate value, then scale as your needs evolve
+          Start with a lean implementation that delivers immediate value, then scale as your needs evolve.
         </p>
         
         <div className="grid md:grid-cols-3 gap-10">
@@ -53,10 +53,10 @@ export default function MVPSection() {
         <div className="mt-16 text-center">
           <a
             href="#consultation-form"
-            onClick={scrollToConsultation}
-            className="inline-block bg-transparent hover:bg-[#30D5E8]/10 text-[#30D5E8] border border-[#30D5E8] font-medium py-3 px-8 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.3)]"
+            onClick={(e) => scrollToSection('consultation-form', e)}
+            className="inline-block bg-transparent hover:bg-[#30D5E8]/10 text-[#30D5E8] border border-[#30D5E8] font-medium py-3 px-8 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.3)] transform hover:scale-105"
           >
-            Schedule a Consultation
+            Explore Our Solutions
           </a>
         </div>
       </div>

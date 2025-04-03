@@ -25,7 +25,7 @@ export default function AssistantSection() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isTyping]);
 
   const handleSuggestionClick = (suggestion: string) => {
     setInputValue(suggestion);
@@ -95,7 +95,7 @@ export default function AssistantSection() {
     setTimeout(() => {
       setCalling(false);
       setShowCallbackForm(true);
-    }, 1000);
+    }, 2000); // Delay as per requirements: 2 seconds
   };
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
@@ -127,12 +127,12 @@ export default function AssistantSection() {
           </p>
         </div>
 
-        {/* Suggestion Pills */}
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-10">
+        {/* Quick Action Chips - One line for large screens with equal spacing */}
+        <div className="flex flex-nowrap overflow-x-auto md:justify-center space-x-4 md:space-x-6 mb-10 pb-2 px-1">
           {suggestions.map((suggestion, index) => (
             <button 
               key={index}
-              className="suggestion-button transition-all duration-200 hover:shadow-[0_0_15px_rgba(48,213,232,0.3)] bg-[#003848]/50 border border-[#30D5E8]/30 text-white px-5 py-2 rounded-full text-sm hover:bg-[#003848] hover:border-[#30D5E8]/50 hover:scale-105"
+              className="suggestion-button flex-none transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] bg-[#003848]/50 border border-[#30D5E8]/30 text-white px-5 py-2 rounded-full text-sm hover:bg-[#003848] hover:border-[#30D5E8]/50 hover:scale-105 hover:glow"
               onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion}
@@ -148,13 +148,13 @@ export default function AssistantSection() {
               {messages.map((message, index) => (
                 <div 
                   key={index} 
-                  className={`mb-4 ${message.isUser ? 'ml-auto' : 'mr-auto'} max-w-[85%] animate-fadeIn`}
+                  className={`mb-4 ${message.isUser ? 'text-right' : 'text-left'} max-w-full animate-fadeIn`}
                 >
                   <div 
-                    className={`rounded-2xl px-4 py-3 inline-block ${
+                    className={`rounded-2xl px-4 py-3 inline-block max-w-[85%] ${
                       message.isUser 
-                        ? 'bg-[#30D5E8] text-[#0C1F25] ml-auto rounded-tr-none' 
-                        : 'bg-[#002836] text-white mr-auto rounded-tl-none'
+                        ? 'bg-[#3B82F6] text-white ml-auto rounded-tr-none' // User messages: light blue, right-aligned 
+                        : 'bg-[#002836] text-white mr-auto rounded-tl-none'  // AI messages: darker, left-aligned
                     }`}
                   >
                     {message.text}
@@ -163,7 +163,7 @@ export default function AssistantSection() {
               ))}
               
               {isTyping && (
-                <div className="mb-4 max-w-[85%] mr-auto">
+                <div className="mb-4 text-left">
                   <div className="bg-[#002836] text-white rounded-2xl px-4 py-3 rounded-tl-none inline-block">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 rounded-full bg-[#30D5E8] animate-pulse"></div>
@@ -182,17 +182,17 @@ export default function AssistantSection() {
             <div className="relative">
               <input 
                 type="text" 
-                placeholder="Type your question here..." 
+                placeholder="What would you like help with today?..." 
                 className="w-full bg-[#003848]/50 border border-[#30D5E8]/30 rounded-lg py-4 px-6 pr-16 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
                 value={inputValue}
                 onChange={handleInputChange}
               />
               <button 
                 type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] rounded-full transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] group"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] rounded-full transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(48,213,232,0.5)]"
                 disabled={!inputValue.trim()}
               >
-                <ArrowUp className="h-5 w-5 group-hover:animate-bounce" />
+                <ArrowUp className="h-5 w-5" />
               </button>
             </div>
           </form>
@@ -204,24 +204,27 @@ export default function AssistantSection() {
             <div className="flex flex-col md:flex-row items-center gap-6">
               <div className="md:w-1/3 flex justify-center">
                 <div className="w-32 h-32 md:w-40 md:h-40 bg-[#002836] rounded-full flex items-center justify-center border border-[#30D5E8]/30 shadow-[0_0_20px_rgba(48,213,232,0.2)]">
-                  <MessageCircle className="w-16 h-16 text-[#30D5E8]/70" />
+                  <Phone className="w-16 h-16 text-[#30D5E8]/70" />
                 </div>
               </div>
               
               <div className="md:w-2/3">
                 <h3 className="text-xl lg:text-2xl font-bold mb-3">Talk to an AI Adoption Agent</h3>
                 <p className="text-slate-300 mb-5">
-                  Not sure where to start with AI in your business? Our AI adoption agents are ready to assist with integration planning, workflow strategy, and custom automation.
+                  Not sure where to start with AI? Our agents are here to help you plan integrations, streamline workflows, and create custom automation strategies.
                 </p>
                 
                 <button 
-                  className="flex items-center bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] font-medium px-6 py-3 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] hover:translate-y-[-2px]"
+                  className="flex items-center bg-[#EF4444] hover:bg-[#F87171] text-white font-medium px-6 py-3 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(239,68,68,0.5)] hover:translate-y-[-2px]"
                   onClick={handleTalkToAgent}
                   disabled={calling}
                 >
                   {calling ? (
                     <>
-                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                      <span className="relative w-5 h-5 mr-2">
+                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#EF4444] opacity-75 animate-ping"></span>
+                        <span className="relative inline-flex rounded-full h-5 w-5 bg-[#EF4444]"></span>
+                      </span>
                       Calling...
                     </>
                   ) : (
@@ -273,7 +276,7 @@ export default function AssistantSection() {
                 
                 <button 
                   type="submit"
-                  className="w-full bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] font-medium py-3 px-6 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)]"
+                  className="w-full bg-[#EF4444] hover:bg-[#F87171] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(239,68,68,0.5)]"
                 >
                   Request Callback
                 </button>
