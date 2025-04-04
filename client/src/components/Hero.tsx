@@ -57,7 +57,7 @@ export default function Hero() {
       {/* Full-screen background image */}
       <div className="absolute inset-0 w-full h-full">
         <img 
-          src="./assets/hero-image.png"
+          src="/assets/hero-image.png"
           alt="AI Neural Network Visualization" 
           className="w-full h-full object-cover object-center"
         />

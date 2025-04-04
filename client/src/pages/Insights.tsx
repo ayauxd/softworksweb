@@ -15,7 +15,7 @@ export default function Insights() {
       category: "Business Strategy",
       date: "2023-12-15",
       author: "Michael Chen",
-      image: "./assets/blog-ai-supply-chain.png",
+      image: "/assets/blog-ai-supply-chain.png",
       url: "/insights/supply-chain-transformation"
     },
     {
@@ -26,7 +26,7 @@ export default function Insights() {
       category: "Workplace Innovation",
       date: "2023-11-29",
       author: "Sarah Johnson",
-      image: "./assets/blog-future-work-ai.png",
+      image: "/assets/blog-future-work-ai.png",
       url: "/insights/future-work-ai"
     },
     {
@@ -37,7 +37,7 @@ export default function Insights() {
       category: "Technical Insights",
       date: "2023-11-17",
       author: "Alex Rivera",
-      image: "./assets/prompt-engineering.png",
+      image: "/assets/prompt-engineering.png",
       url: "/insights/prompt-engineering"
     }
   ];

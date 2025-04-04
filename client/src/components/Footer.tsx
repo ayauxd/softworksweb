@@ -19,7 +19,7 @@ export default function Footer() {
               onClick={(e) => scrollToSection('hero', e)}
               className="flex items-center mb-5 group transition-transform duration-300 hover:scale-105 w-fit"
             >
-              <img src="./assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
+              <img src="/assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
               <div className="flex flex-col items-center">
                 <h3 className="text-xl font-bold text-[#212121] tracking-wide">
                   SOFTWORKS

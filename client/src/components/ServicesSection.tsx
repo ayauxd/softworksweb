@@ -10,25 +10,25 @@ export default function ServicesSection() {
       icon: <BrainCircuit className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "AI Strategy Consulting",
       description: "Maximize ROI and transform your business with a tailored AI roadmap designed for impact.",
-      image: "./assets/ai-strategy.png"
+      image: "/assets/ai-strategy.png"
     },
     {
       icon: <Bot className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Autonomous Agents",
       description: "Increase efficiency by building specialized AI assistants that handle complex workflows autonomously.",
-      image: "./assets/autonomous-agents.png"
+      image: "/assets/autonomous-agents.png"
     },
     {
       icon: <Workflow className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Workflow Automation",
       description: "Achieve continuous operation and adaptability with self-optimizing, AI-driven automated systems.",
-      image: "./assets/workflow-automation.png"
+      image: "/assets/workflow-automation.png"
     },
     {
       icon: <BarChart3 className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Prompt Engineering",
       description: "Measure AI system effectiveness with real-time metrics and continuous improvement insights for your operations.",
-      image: "./assets/prompt-engineering.png"
+      image: "/assets/prompt-engineering.png"
     }
   ];
 

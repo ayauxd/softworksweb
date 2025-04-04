@@ -57,7 +57,7 @@ const allPosts: BlogPost[] = [
     `,
     date: "December 15, 2023",
     category: "Business Strategy",
-    image: "./assets/blog-ai-supply-chain.png"
+    image: "/assets/blog-ai-supply-chain.png"
   },
   {
     id: 2,
@@ -112,7 +112,7 @@ const allPosts: BlogPost[] = [
     `,
     date: "November 29, 2023",
     category: "Workplace Innovation",
-    image: "./assets/blog-future-work-ai.png"
+    image: "/assets/blog-future-work-ai.png"
   },
   {
     id: 3,
@@ -177,7 +177,7 @@ const allPosts: BlogPost[] = [
     `,
     date: "November 17, 2023",
     category: "Technical Insights",
-    image: "./assets/prompt-engineering.png"
+    image: "/assets/prompt-engineering.png"
   }
 ];
 
