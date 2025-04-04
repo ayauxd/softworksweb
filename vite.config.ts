@@ -16,6 +16,7 @@ export default defineConfig({
     react(),
     runtimeErrorOverlay(),
     themePlugin(),
+    /* Removed Replit-specific cartographer plugin
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -24,6 +25,7 @@ export default defineConfig({
           ),
         ]
       : []),
+    */
   ],
   resolve: {
     alias: {
@@ -34,7 +36,7 @@ export default defineConfig({
   },
   root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
 });
