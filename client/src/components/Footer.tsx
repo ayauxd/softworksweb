@@ -1,13 +1,9 @@
-import SoftworksLogo from "./SoftworksLogo";
 import { Mail, Phone, MapPin, Linkedin, Facebook, Globe } from "lucide-react";
-import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const { theme } = useTheme();
   
-  // Removed local scrollToSection function, using imported utility
 
   return (
     <footer 
@@ -22,7 +18,7 @@ export default function Footer() {
               onClick={(e) => scrollToSection('hero', e)}
               className="flex items-center mb-5 group transition-transform duration-300 hover:scale-105 w-fit"
             >
-              <SoftworksLogo className="w-10 h-10 mr-3" />
+              <img src="/assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
               <div>
                 <h3 className="text-xl font-bold text-[#212121]">
                   Softworks

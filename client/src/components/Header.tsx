@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { ArrowUp, X, Linkedin, Facebook, Globe } from "lucide-react";
-import SoftworksLogo from "./SoftworksLogo";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
@@ -25,8 +24,6 @@ export default function Header({ isSticky }: HeaderProps) {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  // Removed local scrollToSection function, using imported utility
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +56,7 @@ export default function Header({ isSticky }: HeaderProps) {
               onClick={(e) => { setIsMobileMenuOpen(false); scrollToSection('hero', e); }}
               className="flex items-center group transition-transform duration-300 hover:scale-105"
             >
-              <SoftworksLogo className="w-10 h-10 mr-3" />
+              <img src="/assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
               <div>
                 <h1 className="text-xl font-bold transition-colors duration-300 text-[#212121]">
                   Softworks

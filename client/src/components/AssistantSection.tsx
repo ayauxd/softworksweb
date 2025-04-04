@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowUp, X, Loader2, Bot, HeadsetIcon } from "lucide-react";
+import { ArrowUp, X, Loader2, Bot, HeadsetIcon, User } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 
 export default function AssistantSection() {
@@ -136,7 +136,7 @@ export default function AssistantSection() {
       id="chatbot-section"
       className={`${
         isChatModalOpen
-          ? 'fixed inset-0 z-50 flex flex-col p-8 bg-black/70 backdrop-blur-sm'
+          ? 'fixed inset-0 z-50 flex flex-col justify-center items-center p-4 sm:p-8 bg-black/70 backdrop-blur-sm'
           : 'py-24 md:py-32 px-6 lg:px-12'
       } ${
         theme === 'dark' ? 'bg-[#002B36]' : 'bg-[#F5F5F5]'
@@ -159,7 +159,7 @@ export default function AssistantSection() {
           </button>
         </div>
       )}
-      <div className={`container mx-auto max-w-4xl flex-grow flex flex-col`}>
+      <div className={`container mx-auto max-w-3xl ${isChatModalOpen ? 'h-full max-h-[85vh] flex flex-col' : 'flex-grow flex flex-col'}`}>
         {!isChatModalOpen && (
           <div className="text-center mb-16">
             <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 ${
@@ -180,7 +180,7 @@ export default function AssistantSection() {
           onClick={(e) => { if (isChatModalOpen) e.stopPropagation(); }}
           className={`rounded-xl border shadow-lg transition-all duration-300 overflow-hidden flex flex-col ${
             isChatModalOpen
-              ? 'flex-grow w-full'
+              ? 'flex-grow w-full h-full'
               : 'mb-10'
           } ${
             theme === 'dark'
@@ -189,14 +189,19 @@ export default function AssistantSection() {
           }`}>
           {/* Messages Area - Conditionally rendered */}
           {conversationStarted && (
-            <div className={`p-4 overflow-y-auto flex-grow`}>
+            <div className={`p-4 overflow-y-auto flex-grow space-y-4`}>
               {messages.map((message, index) => (
                 <div 
                   key={index} 
-                  className={`${message.isUser ? 'self-end' : 'self-start'} max-w-[85%] animate-fadeIn`}
+                  className={`flex items-end gap-2 animate-fadeIn ${message.isUser ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div 
-                    className={`rounded-xl px-4 py-3 inline-block break-words ${
+                  {!message.isUser && (
+                    <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#003747]' : 'bg-[#E0F7FA]'}`}>
+                      <img src="/assets/logo.png" alt="Bot Avatar" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div
+                    className={`max-w-[80%] rounded-xl px-4 py-2.5 break-words ${
                       message.isUser 
                         ? 'bg-[#00BCD4] text-white ml-auto rounded-br-none'
                         : `${theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'} mr-auto rounded-bl-none`
@@ -204,6 +209,11 @@ export default function AssistantSection() {
                   >
                     {message.text}
                   </div>
+                  {message.isUser && (
+                     <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-600' : 'bg-gray-300'}`}>
+                       <User className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
+                    </div>
+                   )}
                 </div>
               ))}
               
