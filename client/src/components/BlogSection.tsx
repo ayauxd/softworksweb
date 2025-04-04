@@ -4,26 +4,47 @@ import { useTheme } from "@/lib/theme-context";
 const blogPosts = [
   {
     id: 1,
-    title: "How Autonomous AI is Revolutionizing Supply Chain Management",
-    summary: "Discover how companies implement agentic AI solutions to automate inventory forecasting, optimize logistics, and reduce operational costs.",
-    image: "/assets/blog-image-placeholder-1.png",
-    url: "#"
+    title: "Supply Chain Transformation with AI: Beyond Prediction",
+    summary: "Discover how companies are using AI to not just predict disruptions but actively reconfigure supply chains in real-time.",
+    category: "Business Strategy",
+    date: "2023-12-15",
+    author: "Michael Chen",
+    image: "./assets/blog-ai-supply-chain.png",
+    url: "/insights/supply-chain-transformation"
   },
   {
     id: 2,
-    title: "The Future of Work: Integrating AI Agents into Your Team",
-    summary: "Explore the benefits and challenges of incorporating AI agents as collaborative members for enhanced productivity and decision-making.",
-    image: "/assets/blog-image-placeholder-2.png",
-    url: "#"
+    title: "The Future of Work: AI Assistants as Collaborative Partners",
+    summary: "How agentic AI is shifting from automation tools to collaborative partners that augment human creativity and decision-making.",
+    category: "Workplace Innovation",
+    date: "2023-11-29",
+    author: "Sarah Johnson",
+    image: "./assets/blog-future-work-ai.png",
+    url: "/insights/future-work-ai"
   },
   {
     id: 3,
-    title: "Case Study: 40% Efficiency Gains via Workflow Automation",
-    summary: "Learn how a Fortune 500 company partnered with Softworks to transform operations using our bespoke AI workflow automation solutions.",
-    image: "/assets/blog-image-placeholder-3.png",
-    url: "#"
+    title: "Engineering the Perfect Prompt: The Art & Science",
+    summary: "Why prompt engineering has become a critical skill for organizations looking to maximize the value of their AI investments.",
+    category: "Technical Insights",
+    date: "2023-11-17",
+    author: "Alex Rivera",
+    image: "./assets/prompt-engineering.png",
+    url: "/insights/prompt-engineering"
   }
 ];
+
+const formatDate = (dateString: string) => {
+  try {
+    return new Date(dateString).toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  } catch (e) {
+    return dateString;
+  }
+};
 
 export default function BlogSection() {
   const { theme } = useTheme();
@@ -47,8 +68,8 @@ export default function BlogSection() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto lg:px-8">
-          {blogPosts.slice(0, 2).map((post) => (
+        <div className="grid md:grid-cols-3 gap-8 mx-auto">
+          {blogPosts.map((post) => (
             <a
               href={post.url}
               key={post.id}
@@ -68,8 +89,11 @@ export default function BlogSection() {
                   />
                </div>
               
-              <div className="p-6">
-                <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 group-hover:text-[#00BCD4] ${
+              <div className="p-6 flex flex-col flex-grow">
+                <p className={`text-xs font-semibold uppercase tracking-wider mb-2 ${theme === 'dark' ? 'text-[#00BCD4]' : 'text-[#00838F]'}`}>
+                  {post.category}
+                </p>
+                <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 group-hover:text-[#00BCD4] flex-grow ${
                    theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
                 }`}>
                   {post.title}
@@ -79,11 +103,9 @@ export default function BlogSection() {
                 }`}>
                   {post.summary}
                 </p>
-                <div
-                  className="inline-flex items-center text-[#00BCD4] font-medium mt-2"
-                >
-                  Read More <ArrowRight className="ml-1.5 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </div>
+                <p className={`text-xs mt-auto pt-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+                   {formatDate(post.date)}
+                </p>
               </div>
             </a>
           ))}
@@ -91,7 +113,7 @@ export default function BlogSection() {
         
         <div className="mt-16 text-center">
           <a
-            href="#"
+            href="/insights"
             className={`inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-8 rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] ${theme === 'dark' ? 'focus:ring-offset-[#002B36]' : 'focus:ring-offset-white'}`}
           >
             <span>View All Insights</span>

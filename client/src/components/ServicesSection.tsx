@@ -1,4 +1,4 @@
-import { BrainCircuit, Bot, Workflow } from "lucide-react";
+import { BrainCircuit, Bot, Workflow, BarChart3 } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 
@@ -10,19 +10,25 @@ export default function ServicesSection() {
       icon: <BrainCircuit className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "AI Strategy Consulting",
       description: "Maximize ROI and transform your business with a tailored AI roadmap designed for impact.",
-      image: "/images/ai-strategy.jpg"
+      image: "./assets/ai-strategy.png"
     },
     {
       icon: <Bot className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Autonomous Agents",
       description: "Increase efficiency by building specialized AI assistants that handle complex workflows autonomously.",
-      image: "/images/autonomous-agents.jpg"
+      image: "./assets/autonomous-agents.png"
     },
     {
       icon: <Workflow className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Workflow Automation",
       description: "Achieve continuous operation and adaptability with self-optimizing, AI-driven automated systems.",
-      image: "/images/workflow-automation.jpg"
+      image: "./assets/workflow-automation.png"
+    },
+    {
+      icon: <BarChart3 className="w-12 h-12 text-[#00BCD4] mb-5" />,
+      title: "Prompt Engineering",
+      description: "Measure AI system effectiveness with real-time metrics and continuous improvement insights for your operations.",
+      image: "./assets/prompt-engineering.png"
     }
   ];
 
@@ -49,47 +55,48 @@ export default function ServicesSection() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => {
             // Generate slug from title for the link
             const slug = service.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
             return (
-              <a // Changed div to a link
+              <a
                 key={index} 
-                href={`/insights/${slug}`} // Added href
-                className={`block p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${ // Added block and hover shadow for light theme
+                href={`/insights/${slug}`}
+                className={`block rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
                   theme === 'dark'
                     ? 'bg-[#001B26] hover:shadow-[0_8px_30px_rgba(0,188,212,0.15)]' 
-                    : 'bg-white' // Removed explicit hover:shadow-xl here, added above
+                    : 'bg-white'
                 }`}
               >
-                <div className="flex flex-col">
-                  <img src={service.image} alt={`${service.title} illustration`} className="w-full h-40 object-cover rounded-t-xl mb-6" />
-                  {/* Removed Icon Div */}
-                  
-                  {/* Adjusted padding/margin for title */}
-                  <h3 className={`text-xl font-bold mb-4 px-8 ${
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={service.image} 
+                    alt={`${service.title} illustration`} 
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className={`text-xl font-bold mb-4 ${
                     theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
                   }`}>
                     {service.title}
                   </h3>
-                  <p className={`mb-6 px-8 ${ // Ensure consistent padding
+                  <p className={`${
                     theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
                   }`}>
                     {service.description}
                   </p>
-                  {/* Removed Learn More Link */}
-                  
                 </div>
-              </a> // Closed link tag
+              </a>
             )
           })}
         </div>
 
         <div className="mt-20 text-center">
           <a
-            href="#consultation-form"
-            onClick={(e) => scrollToSection('consultation-form', e)}
+            href="#chatbot-section"
+            onClick={(e) => scrollToSection('chatbot-section', e)}
             className="inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-8 rounded-md shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_10px_40px_rgba(0,188,212,0.4)]"
           >
             <span>Request a Custom Solution</span>

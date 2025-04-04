@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowUp, X, Linkedin, Facebook, Globe } from "lucide-react";
+import { ArrowUp, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
@@ -56,12 +56,12 @@ export default function Header({ isSticky }: HeaderProps) {
               onClick={(e) => { setIsMobileMenuOpen(false); scrollToSection('hero', e); }}
               className="flex items-center group transition-transform duration-300 hover:scale-105"
             >
-              <img src="/assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
-              <div>
-                <h1 className="text-xl font-bold transition-colors duration-300 text-[#212121]">
-                  Softworks
+              <img src="./assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
+              <div className="flex flex-col items-center">
+                <h1 className="text-xl font-bold transition-colors duration-300 text-[#212121] tracking-wide">
+                  SOFTWORKS
                 </h1>
-                <p className="text-xs tracking-widest text-[#00BCD4]">TRADING COMPANY</p>
+                <p className="text-xs tracking-widest text-[#00BCD4] w-full text-center">TRADING COMPANY</p>
               </div>
             </a>
             
@@ -82,7 +82,8 @@ export default function Header({ isSticky }: HeaderProps) {
                 ))}
               </nav>
               
-              {/* Social Icons */}
+              {/* Removed Social Icons Section */}
+              {/* 
               <div className="flex items-center space-x-4">
                 <div className="flex space-x-3 mr-3">
                   <a 
@@ -107,8 +108,9 @@ export default function Header({ isSticky }: HeaderProps) {
                     <Globe className="w-5 h-5" />
                   </a>
                 </div>
+              */}
                 <ThemeToggle />
-              </div>
+              {/*</div>*/}
             </div>
             
             {/* Mobile Menu Button */}
@@ -151,7 +153,8 @@ export default function Header({ isSticky }: HeaderProps) {
           ))}
         </nav>
         
-        {/* Mobile Social Icons */}
+        {/* Removed Mobile Social Icons Section */}
+        {/* 
         <div className="flex justify-center space-x-6 mt-10">
           <a 
             href="#" 
@@ -175,6 +178,7 @@ export default function Header({ isSticky }: HeaderProps) {
             <Globe className="w-6 h-6" />
           </a>
         </div>
+         */}
       </div>
 
       {/* Scroll to top button */}

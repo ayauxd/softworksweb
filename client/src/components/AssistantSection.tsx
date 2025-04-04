@@ -13,15 +13,48 @@ export default function AssistantSection() {
   const [isTyping, setIsTyping] = useState(false);
   const [conversationStarted, setConversationStarted] = useState(false);
   const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [currentSuggestions, setCurrentSuggestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
-  const suggestions = [
-    "Integrate agentic AI",
-    "Automate business process",
-    "Tune large language model",
-    "Enhance workflow"
-  ];
+  // All possible suggestions organized by category
+  const allSuggestions = {
+    initial: [
+      "Integrate agentic AI",
+      "Automate business process",
+      "Tune large language model",
+    ],
+    agent: [
+      "Agent capabilities",
+      "Implementation timeline",
+      "ROI calculations",
+    ],
+    automation: [
+      "Process assessment",
+      "AI workflow tools",
+      "Automation pricing",
+    ],
+    llm: [
+      "Fine-tuning process",
+      "Custom LLM solutions",
+      "Model evaluation",
+    ],
+    workflow: [
+      "Bottleneck analysis",
+      "Optimization approach",
+      "Use cases",
+    ],
+    general: [
+      "Performance metrics",
+      "Integration with existing systems",
+      "Project roadmap",
+    ]
+  };
+
+  // Set initial suggestions when component mounts
+  useEffect(() => {
+    setCurrentSuggestions(allSuggestions.initial);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -37,6 +70,23 @@ export default function AssistantSection() {
     }
   }, [isChatModalOpen]);
 
+  // Function to update suggestions based on the user's interaction
+  const updateSuggestions = (userInput: string) => {
+    const input = userInput.toLowerCase();
+    
+    if (input.includes("integrate") || input.includes("agent")) {
+      setCurrentSuggestions(allSuggestions.agent);
+    } else if (input.includes("automate") || input.includes("process")) {
+      setCurrentSuggestions(allSuggestions.automation);
+    } else if (input.includes("tune") || input.includes("language model") || input.includes("llm")) {
+      setCurrentSuggestions(allSuggestions.llm);
+    } else if (input.includes("workflow") || input.includes("enhance")) {
+      setCurrentSuggestions(allSuggestions.workflow);
+    } else {
+      setCurrentSuggestions(allSuggestions.general);
+    }
+  };
+
   const handleSuggestionClick = (suggestion: string) => {
     setInputValue(suggestion);
     
@@ -50,6 +100,9 @@ export default function AssistantSection() {
         }, 300);
       }
     });
+    
+    // Update suggestions based on the selected suggestion
+    updateSuggestions(suggestion);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,19 +117,26 @@ export default function AssistantSection() {
       setIsTyping(false);
       
       let botResponse = "";
-      if (userMessage.toLowerCase().includes("integrate")) {
+      if (userMessage.toLowerCase().includes("integrate") || userMessage.toLowerCase().includes("agent")) {
         botResponse = "Our agentic AI integration services help businesses implement autonomous AI systems that can make decisions and take actions with minimal human supervision. Would you like to learn more about our integration process?";
-      } else if (userMessage.toLowerCase().includes("automate")) {
+      } else if (userMessage.toLowerCase().includes("automate") || userMessage.toLowerCase().includes("process")) {
         botResponse = "We can help automate your business processes using our AI-powered workflow tools. This typically reduces manual work by 70% and improves accuracy. What specific processes are you looking to automate?";
-      } else if (userMessage.toLowerCase().includes("tune") || userMessage.toLowerCase().includes("language model")) {
+      } else if (userMessage.toLowerCase().includes("tune") || userMessage.toLowerCase().includes("language model") || userMessage.toLowerCase().includes("llm")) {
         botResponse = "We offer custom LLM fine-tuning services to make AI models specifically trained on your business data and use cases. Would you like to discuss how this could benefit your specific industry?";
       } else if (userMessage.toLowerCase().includes("workflow") || userMessage.toLowerCase().includes("enhance")) {
         botResponse = "Our workflow enhancement solutions identify bottlenecks and implement AI-driven optimizations. On average, our clients see a 40% improvement in process efficiency. What workflows are you currently looking to enhance?";
+      } else if (userMessage.toLowerCase().includes("implementation") || userMessage.toLowerCase().includes("timeline")) {
+        botResponse = "Our typical implementation timeline is 4-8 weeks depending on the complexity of your requirements. We follow an agile methodology with iterative deployments to ensure you see value quickly.";
+      } else if (userMessage.toLowerCase().includes("roi") || userMessage.toLowerCase().includes("cost")) {
+        botResponse = "Our clients typically see full ROI within 6-9 months. We can provide detailed ROI calculations based on your specific business metrics during a consultation.";
       } else {
         botResponse = "Thank you for your message. Our AI experts can help you with that. Would you like to discuss your specific requirements with one of our AI adoption agents?";
       }
       
       setMessages(prev => [...prev, {text: botResponse, isUser: false}]);
+      
+      // Update suggestions based on the user's message
+      updateSuggestions(userMessage);
     }, 1500);
   };
 
@@ -170,12 +230,12 @@ export default function AssistantSection() {
             <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${
               theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
             }`}>
-              Ask our AI assistant below, or connect directly with a workflow architect.
+              Ask our AI assistant below, or connect directly with one of our agents.
             </p>
           </div>
         )}
 
-        {/* Chat Area */}
+        {/* Chat Interface */}
         <div 
           onClick={(e) => { if (isChatModalOpen) e.stopPropagation(); }}
           className={`rounded-xl border shadow-lg transition-all duration-300 overflow-hidden flex flex-col ${
@@ -186,67 +246,18 @@ export default function AssistantSection() {
             theme === 'dark'
               ? 'bg-[#001B26] border-[#00BCD4]/20'
               : 'bg-white border-gray-200'
-          }`}>
-          {/* Messages Area - Conditionally rendered */}
-          {conversationStarted && (
-            <div className={`p-4 overflow-y-auto flex-grow space-y-4`}>
-              {messages.map((message, index) => (
-                <div 
+          }`}
+        >
+          {/* Suggestion Chips - Visible on top */}
+          <div className="p-4 flex justify-center border-b border-gray-200 dark:border-[#00BCD4]/20">
+            <div className="flex-wrap flex gap-3 justify-between w-full max-w-lg">
+              {currentSuggestions.slice(0, 3).map((suggestion, index) => (
+                <button 
                   key={index} 
-                  className={`flex items-end gap-2 animate-fadeIn ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  {!message.isUser && (
-                    <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#003747]' : 'bg-[#E0F7FA]'}`}>
-                      <img src="/assets/logo.png" alt="Bot Avatar" className="w-full h-full object-cover" />
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[80%] rounded-xl px-4 py-2.5 break-words ${
-                      message.isUser 
-                        ? 'bg-[#00BCD4] text-white ml-auto rounded-br-none'
-                        : `${theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'} mr-auto rounded-bl-none`
-                    }`}
-                  >
-                    {message.text}
-                  </div>
-                  {message.isUser && (
-                     <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-600' : 'bg-gray-300'}`}>
-                       <User className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
-                    </div>
-                   )}
-                </div>
-              ))}
-              
-              {isTyping && (
-                <div className="self-start animate-fadeIn">
-                  <div className={`rounded-xl px-4 py-3 rounded-bl-none inline-block ${
-                    theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'
-                  }`}>
-                    <div className="flex space-x-1.5 items-center">
-                      <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse`}></div>
-                      <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse delay-150`}></div>
-                      <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse delay-300`}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-          )}
-
-          {/* Suggestion Chips */}
-          <div className="p-4 border-t flex flex-wrap items-center gap-3 justify-start ${
-            theme === 'dark' ? 'border-[#00BCD4]/20' : 'border-gray-200'
-          }">
-            {/* Action Button Group */}
-            <div className="flex flex-wrap gap-3">
-              {suggestions.map((suggestion, index) => (
-                <button
-                  key={index}
-                  className={`suggestion-button transition-all duration-300 px-4 py-2 rounded-md text-sm font-medium border hover:-translate-y-0.5 shadow-sm ${
-                    theme === 'dark'
-                      ? 'bg-transparent border-[#4DD0E1]/60 text-[#4DD0E1] hover:bg-[#4DD0E1]/10 hover:border-[#4DD0E1]'
-                      : 'bg-white border-gray-300 text-[#424242] hover:bg-[#E0F7FA] hover:border-[#00BCD4]'
+                  className={`px-3 py-1.5 rounded-full text-sm suggestion-button flex-grow text-center ${
+                    theme === 'dark' 
+                      ? 'bg-[#002B36] border border-[#00BCD4]/30 text-[#E0E0E0] hover:bg-[#003747]' 
+                      : 'bg-[#E0F7FA] text-[#00838F] hover:bg-[#B2EBF2]'
                   }`}
                   onClick={() => handleSuggestionClick(suggestion)}
                 >
@@ -255,16 +266,61 @@ export default function AssistantSection() {
               ))}
             </div>
           </div>
+          
+          {/* Messages Area */}
+          <div className={`p-4 overflow-y-auto flex-grow space-y-4 ${!conversationStarted ? 'min-h-[120px]' : ''}`}>
+            {conversationStarted && messages.map((message, index) => (
+              <div 
+                key={index} 
+                className={`flex items-end gap-2 animate-fadeIn ${message.isUser ? 'justify-end' : 'justify-start'}`}
+              >
+                {!message.isUser && (
+                  <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#003747]' : 'bg-[#E0F7FA]'}`}>
+                    <img src="./assets/logo.png" alt="Bot Avatar" className="w-full h-full object-cover" />
+                  </div>
+                )}
+                <div
+                  className={`max-w-[80%] rounded-xl px-4 py-2.5 break-words ${
+                    message.isUser 
+                      ? 'bg-[#00BCD4] text-white ml-auto rounded-br-none'
+                      : `${theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'} mr-auto rounded-bl-none`
+                  }`}
+                >
+                  {message.text}
+                </div>
+                {message.isUser && (
+                  <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-600' : 'bg-gray-300'}`}>
+                    <User className={`w-4 h-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} />
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {isTyping && (
+              <div className="self-start animate-fadeIn">
+                <div className={`rounded-xl px-4 py-3 rounded-bl-none inline-block ${
+                  theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'
+                }`}>
+                  <div className="flex space-x-1.5 items-center">
+                    <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse`}></div>
+                    <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse delay-150`}></div>
+                    <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse delay-300`}></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
 
           {/* Input Field */}
           <form onSubmit={handleSubmit} className={`p-4 border-t ${
             theme === 'dark' ? 'border-[#00BCD4]/20' : 'border-gray-200'
           }`}>
-            <div className="flex items-center gap-3">
+            <div className="relative">
               <input
                 type="text"
                 placeholder="Ask about AI integration or workflow automation..."
-                className={`flex-grow rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-[#00BCD4] transition-shadow ${
+                className={`w-full rounded-lg py-3 pl-4 pr-12 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${
                   theme === 'dark'
                     ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]'
                     : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'
@@ -275,52 +331,54 @@ export default function AssistantSection() {
               />
               <button
                 type="submit"
-                className={`w-11 h-11 flex items-center justify-center rounded-lg transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] ${
+                className={`absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full transition-colors ${
                   inputValue.trim()
-                  ? 'bg-[#00BCD4] hover:bg-[#00ACC1] text-white'
-                  : theme === 'dark' ? 'bg-[#003747] text-gray-500 cursor-not-allowed' : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                 } ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'}`}
+                    ? 'bg-[#00BCD4] hover:bg-[#00ACC1] text-white'
+                    : theme === 'dark' ? 'bg-[#003747] text-gray-500 cursor-not-allowed' : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                }`}
                 disabled={!inputValue.trim()}
                 aria-label="Send message"
               >
-                <ArrowUp className="h-5 w-5" />
+                <ArrowUp className="h-4 w-4" />
               </button>
             </div>
           </form>
         </div>
 
-        {/* New Call-to-Action Section */} 
+        {/* Call Center CTA - Only show if not in modal */}
         {!isChatModalOpen && (
-          <div className={`mt-8 flex flex-col md:flex-row items-center rounded-xl border shadow-md overflow-hidden ${
+          <div className={`mt-8 flex flex-col md:flex-row-reverse items-center rounded-xl border shadow-md overflow-hidden ${
             theme === 'dark' 
               ? 'bg-[#001B26] border-[#00BCD4]/20' 
               : 'bg-white border-gray-200'
           }`}>
-            {/* Image Area */}
-            <div className="w-full md:w-1/3 h-48 md:h-full flex-shrink-0">
-              <img 
-                src="/images/call-center-workstation.jpg" 
-                alt="Call center workstation with headset" 
-                className="w-full h-full object-cover"
-              />
+            {/* Image Area - Now on the right */}
+            <div className="w-full md:w-1/2 h-64 md:h-full flex-shrink-0">
+              <div className="w-full h-auto rounded-xl overflow-hidden my-6">
+                <img 
+                  src="./assets/call-center-workstation.png" 
+                  alt="AI-powered call center workstation" 
+                  className="w-full h-full object-cover shadow-md"
+                />
+              </div>
             </div>
-            {/* Content Area */}
-            <div className="flex-grow p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Content Area - Now on the left */}
+            <div className="flex-grow p-6 md:p-8 flex flex-col items-center md:items-start justify-between gap-4">
               <div className="text-center md:text-left">
                 <h3 className={`text-xl lg:text-2xl font-semibold mb-2 ${
                   theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
                 }`}>
-                  Speak Directly to an Architect
+                  Speak Directly to an Agent
                 </h3>
-                <p className={`text-base ${
+                <p className={`text-base mb-6 ${
                   theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
                 }`}>
-                  Get personalized guidance for your AI project.
+                  Get personalized guidance for your AI project from our implementation specialists.
                 </p>
               </div>
               {/* CTA Button */}
               <button
-                className={`mt-4 md:mt-0 inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] whitespace-nowrap ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'} ${
+                className={`inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] whitespace-nowrap ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'} ${
                   !(calling || showCallbackForm) ? 'animate-pulse' : '' 
                 }`}
                 onClick={handleTalkToAgent}
@@ -329,7 +387,6 @@ export default function AssistantSection() {
                 {calling ? (
                   <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                 ) : (
-                  // Icon without pulse animation
                   <HeadsetIcon className={`w-5 h-5 mr-2`} />
                 )}
                 {calling ? 'Connecting...' : showCallbackForm ? 'Request Sent' : 'Request Callback'}
@@ -338,7 +395,7 @@ export default function AssistantSection() {
           </div>
         )}
 
-        {/* Callback Form Modal (or inline section) - Simplified example */}
+        {/* Callback Form */}
         {showCallbackForm && (
           <div className={`fixed inset-0 z-50 flex items-center justify-center p-4`}>
             <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setShowCallbackForm(false)}></div>
@@ -366,32 +423,53 @@ export default function AssistantSection() {
                    id="phone"
                    type="tel" 
                    placeholder="+1 (555) 123-4567"
-                   className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                   className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${
+                     theme === 'dark' 
+                       ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]' 
+                       : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'
+                   }`}
                    value={phoneNumber}
                    onChange={(e) => setPhoneNumber(e.target.value)}
                    required
                  />
                </div>
                <div>
-                 <label htmlFor="topic" className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                 <label htmlFor="topic" className={`block text-sm font-medium mb-1 ${
+                   theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'
+                 }`}>
                    What would you like to discuss?
                  </label>
                  <textarea 
                    id="topic"
                    placeholder="Briefly describe your project or question..."
-                   className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow resize-none ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                   className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow resize-none ${
+                     theme === 'dark' 
+                       ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]' 
+                       : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'
+                   }`}
                    rows={3}
                    value={discussTopic}
                    onChange={(e) => setDiscussTopic(e.target.value)}
                    required
                  />
                </div>
-               <button 
-                 type="submit"
-                 className="w-full bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4]"
-               >
-                 Request Callback
-               </button>
+               <div className="flex justify-between">
+                 <button 
+                   type="button"
+                   className={`font-medium text-sm ${
+                     theme === 'dark' ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-black'
+                   }`}
+                   onClick={() => setShowCallbackForm(false)}
+                 >
+                   Cancel
+                 </button>
+                 <button 
+                   type="submit"
+                   className="bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-2 px-4 rounded-md transition-all duration-300 shadow hover:shadow-lg"
+                 >
+                   Request Callback
+                 </button>
+               </div>
              </form>
             </div>
           </div>

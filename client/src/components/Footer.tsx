@@ -1,5 +1,6 @@
-import { Mail, Phone, MapPin, Linkedin, Facebook, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Facebook, Globe, X } from "lucide-react";
 import { scrollToSection } from "@/lib/utils";
+import { FaReddit, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -18,12 +19,12 @@ export default function Footer() {
               onClick={(e) => scrollToSection('hero', e)}
               className="flex items-center mb-5 group transition-transform duration-300 hover:scale-105 w-fit"
             >
-              <img src="/assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
-              <div>
-                <h3 className="text-xl font-bold text-[#212121]">
-                  Softworks
+              <img src="./assets/logo.png" alt="Softworks Logo" className="w-10 h-10 mr-3 object-contain" />
+              <div className="flex flex-col items-center">
+                <h3 className="text-xl font-bold text-[#212121] tracking-wide">
+                  SOFTWORKS
                 </h3>
-                <p className="text-xs tracking-widest text-[#00BCD4]">TRADING COMPANY</p>
+                <p className="text-xs tracking-widest text-[#00BCD4] w-full text-center">TRADING COMPANY</p>
               </div>
             </a>
             <p className="mb-6 text-sm leading-relaxed text-[#616161]">
@@ -50,6 +51,27 @@ export default function Footer() {
                  aria-label="Website"
              >
                 <Globe className="w-5 h-5" />
+              </a>
+              <a 
+                href="#" 
+                 className="transition-colors duration-300 hover:scale-110 text-gray-500 hover:text-black"
+                 aria-label="X (Twitter)"
+             >
+                <X className="w-5 h-5" />
+              </a>
+               <a 
+                href="#" 
+                 className="transition-colors duration-300 hover:scale-110 text-gray-500 hover:text-[#FF4500]"
+                 aria-label="Reddit"
+             >
+                <FaReddit className="w-5 h-5" />
+              </a>
+               <a 
+                href="#" 
+                 className="transition-colors duration-300 hover:scale-110 text-gray-500 hover:text-[#E1306C]"
+                 aria-label="Instagram"
+             >
+                <FaInstagram className="w-5 h-5" />
               </a>
             </div>
           </div>
