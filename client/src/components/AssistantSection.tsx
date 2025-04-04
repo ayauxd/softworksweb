@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowUp, X, Loader2, Bot, HeadsetIcon, User } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
+import logoImg from "../../public/assets/logo.png";
+import callCenterImg from "../../public/assets/call-center-workstation.png";
 
 export default function AssistantSection() {
   const { theme } = useTheme();
@@ -276,7 +278,7 @@ export default function AssistantSection() {
               >
                 {!message.isUser && (
                   <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center overflow-hidden ${theme === 'dark' ? 'bg-[#003747]' : 'bg-[#E0F7FA]'}`}>
-                    <img src="/assets/logo.png" alt="Bot Avatar" className="w-full h-full object-cover" />
+                    <img src={logoImg} alt="Bot Avatar" className="w-full h-full object-cover" />
                   </div>
                 )}
                 <div
@@ -356,7 +358,7 @@ export default function AssistantSection() {
             <div className="w-full md:w-1/2 h-64 md:h-full flex-shrink-0">
               <div className="w-full h-auto rounded-xl overflow-hidden my-6">
                 <img 
-                  src="/assets/call-center-workstation.png" 
+                  src={callCenterImg} 
                   alt="AI-powered call center workstation" 
                   className="w-full h-full object-cover shadow-md"
                 />

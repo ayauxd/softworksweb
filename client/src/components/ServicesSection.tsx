@@ -3,6 +3,13 @@ import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 import { useEffect } from "react";
 
+// Import images directly instead of using string paths
+// Vite will process these and include them in the build
+import aiStrategyImg from "../../public/assets/ai-strategy.png";
+import autonomousAgentsImg from "../../public/assets/autonomous-agents.png";
+import workflowAutomationImg from "../../public/assets/workflow-automation.png";
+import promptEngineeringImg from "../../public/assets/prompt-engineering.png";
+
 export default function ServicesSection() {
   const { theme } = useTheme();
   
@@ -11,25 +18,25 @@ export default function ServicesSection() {
       icon: <BrainCircuit className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "AI Strategy Consulting",
       description: "Maximize ROI and transform your business with a tailored AI roadmap designed for impact.",
-      image: "/assets/ai-strategy.png"
+      image: aiStrategyImg
     },
     {
       icon: <Bot className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Autonomous Agents",
       description: "Increase efficiency by building specialized AI assistants that handle complex workflows autonomously.",
-      image: "/assets/autonomous-agents.png"
+      image: autonomousAgentsImg
     },
     {
       icon: <Workflow className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Workflow Automation",
       description: "Achieve continuous operation and adaptability with self-optimizing, AI-driven automated systems.",
-      image: "/assets/workflow-automation.png"
+      image: workflowAutomationImg
     },
     {
       icon: <BarChart3 className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Prompt Engineering",
       description: "Measure AI system effectiveness with real-time metrics and continuous improvement insights for your operations.",
-      image: "/assets/prompt-engineering.png"
+      image: promptEngineeringImg
     }
   ];
 

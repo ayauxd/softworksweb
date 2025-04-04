@@ -3,6 +3,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTheme } from "@/lib/theme-context";
 
+// Import images directly
+import blogSupplyChainImg from "../../public/assets/blog-ai-supply-chain.png";
+import blogFutureWorkImg from "../../public/assets/blog-future-work-ai.png";
+import promptEngineeringImg from "../../public/assets/prompt-engineering.png";
+
 interface BlogPost {
   id: number;
   title: string;
@@ -57,7 +62,7 @@ const allPosts: BlogPost[] = [
     `,
     date: "December 15, 2023",
     category: "Business Strategy",
-    image: "/assets/blog-ai-supply-chain.png"
+    image: blogSupplyChainImg
   },
   {
     id: 2,
@@ -112,7 +117,7 @@ const allPosts: BlogPost[] = [
     `,
     date: "November 29, 2023",
     category: "Workplace Innovation",
-    image: "/assets/blog-future-work-ai.png"
+    image: blogFutureWorkImg
   },
   {
     id: 3,
@@ -177,7 +182,7 @@ const allPosts: BlogPost[] = [
     `,
     date: "November 17, 2023",
     category: "Technical Insights",
-    image: "/assets/prompt-engineering.png"
+    image: promptEngineeringImg
   }
 ];
 

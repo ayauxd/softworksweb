@@ -3,6 +3,9 @@ import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 import { ArrowRight, X } from "lucide-react";
 
+// Import image directly
+import heroImage from "../../public/assets/hero-image.png";
+
 export default function Hero() {
   const { theme } = useTheme();
   const [showConsultationForm, setShowConsultationForm] = useState(false);
@@ -14,7 +17,8 @@ export default function Hero() {
     message: ""
   });
   
-  const heroImagePath = "/assets/hero-image.png";
+  // Use imported image path
+  const heroImagePath = heroImage;
 
   useEffect(() => {
     console.log("[Hero] VITE_BASE_URL:", import.meta.env.BASE_URL);
