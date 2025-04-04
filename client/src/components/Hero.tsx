@@ -1,4 +1,3 @@
-import NeuralNetwork from "./NeuralNetwork";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 import { Phone } from "lucide-react";
@@ -23,13 +22,13 @@ export default function Hero() {
             <p className={`text-base sm:text-lg mb-8 md:mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed ${
               theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
             }`}>
-              We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows.
+              We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows (AI systems that can act independently to achieve goals).
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-5">
               <a 
                 href="#consultation-form" 
                 onClick={(e) => scrollToSection('consultation-form', e)}
-                className="inline-flex items-center bg-[#00BCD4] hover:bg-[#00E5FF] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transform hover:-translate-y-1"
+                className="inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
                 aria-label="Schedule a Consultation"
               >
                 Schedule a Consultation
@@ -37,7 +36,7 @@ export default function Hero() {
               <a 
                 href="#chatbot-section" 
                 onClick={(e) => scrollToSection('chatbot-section', e)}
-                className={`inline-flex items-center gap-2 font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 transform hover:-translate-y-1 ${
+                className={`inline-flex items-center gap-2 font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === 'dark' 
                     ? 'border border-[#4DD0E1] text-[#4DD0E1] hover:bg-[#4DD0E1]/10' 
                     : 'border border-[#00BCD4] text-[#00BCD4] hover:bg-[#E0F7FA]'
@@ -50,12 +49,11 @@ export default function Hero() {
             </div>
           </div>
           <div className="lg:w-1/2 flex justify-center lg:justify-end">
-            <div className="w-4/5 md:w-full max-w-lg relative">
-              <div className={`absolute inset-0 rounded-full blur-3xl opacity-30 ${
-                theme === 'dark' ? 'bg-[#00BCD4]' : 'bg-[#B2EBF2]'
-              }`}></div>
-              <NeuralNetwork className="w-full relative z-10" />
-            </div>
+            <img 
+              src="/images/hero-graphic.png" 
+              alt="Abstract representation of AI network" 
+              className="w-4/5 md:w-full max-w-lg relative z-10 rounded-lg shadow-xl"
+            />
           </div>
         </div>
       </div>

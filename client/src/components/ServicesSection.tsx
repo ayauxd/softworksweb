@@ -1,4 +1,4 @@
-import { BrainCircuit, Puzzle, Zap, FileJson, Bot, Workflow } from "lucide-react";
+import { BrainCircuit, Bot, Workflow } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 
@@ -9,19 +9,19 @@ export default function ServicesSection() {
     {
       icon: <BrainCircuit className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "AI Strategy Consulting",
-      description: "Get a tailored AI roadmap that maximizes ROI and transforms your business processes.",
+      description: "Maximize ROI and transform your business with a tailored AI roadmap designed for impact.",
       image: "/images/ai-strategy.jpg"
     },
     {
       icon: <Bot className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Autonomous Agents",
-      description: "Build specialized AI assistants that handle complex, multi-step workflows with minimal oversight.",
+      description: "Increase efficiency by building specialized AI assistants that handle complex workflows autonomously.",
       image: "/images/autonomous-agents.jpg"
     },
     {
       icon: <Workflow className="w-12 h-12 text-[#00BCD4] mb-5" />,
       title: "Workflow Automation",
-      description: "Implement self-healing systems that operate continuously while adapting to changing conditions.",
+      description: "Achieve continuous operation and adaptability with self-optimizing, AI-driven automated systems.",
       image: "/images/workflow-automation.jpg"
     }
   ];
@@ -50,51 +50,40 @@ export default function ServicesSection() {
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <div 
-              key={index} 
-              className={`p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 ${
-                theme === 'dark'
-                  ? 'bg-[#001B26] hover:shadow-[0_8px_30px_rgba(0,188,212,0.15)]' 
-                  : 'bg-white hover:shadow-xl'
-              }`}
-            >
-              <div className="flex flex-col">
-                <img src={service.image} alt={`${service.title} illustration`} className="w-full h-40 object-cover rounded-t-xl mb-6" />
-                <div className={`flex items-center mb-6 px-8`}>
-                  <div className={`rounded-full w-16 h-16 flex items-center justify-center mr-4 flex-shrink-0 ${
-                    theme === 'dark'
-                      ? 'bg-[#00BCD4]/10'
-                      : 'bg-[#E0F7FA]'
-                  }`}>
-                    {service.icon}
-                  </div>
-                  <h3 className={`text-xl font-bold ${
+          {services.map((service, index) => {
+            // Generate slug from title for the link
+            const slug = service.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            return (
+              <a // Changed div to a link
+                key={index} 
+                href={`/insights/${slug}`} // Added href
+                className={`block p-8 rounded-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${ // Added block and hover shadow for light theme
+                  theme === 'dark'
+                    ? 'bg-[#001B26] hover:shadow-[0_8px_30px_rgba(0,188,212,0.15)]' 
+                    : 'bg-white' // Removed explicit hover:shadow-xl here, added above
+                }`}
+              >
+                <div className="flex flex-col">
+                  <img src={service.image} alt={`${service.title} illustration`} className="w-full h-40 object-cover rounded-t-xl mb-6" />
+                  {/* Removed Icon Div */}
+                  
+                  {/* Adjusted padding/margin for title */}
+                  <h3 className={`text-xl font-bold mb-4 px-8 ${
                     theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
                   }`}>
                     {service.title}
                   </h3>
+                  <p className={`mb-6 px-8 ${ // Ensure consistent padding
+                    theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
+                  }`}>
+                    {service.description}
+                  </p>
+                  {/* Removed Learn More Link */}
+                  
                 </div>
-                <p className={`mb-6 px-8 ${
-                  theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
-                }`}>
-                  {service.description}
-                </p>
-                <a 
-                  href="#chatbot-section"
-                  onClick={(e) => scrollToSection('chatbot-section', e)}
-                  className={`mt-auto inline-flex items-center text-[#00BCD4] hover:underline font-medium px-8 pb-8 ${
-                    theme === 'dark' ? 'hover:text-[#4DD0E1]' : 'hover:text-[#00ACC1]'
-                  }`}
-                >
-                  Learn more
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          ))}
+              </a> // Closed link tag
+            )
+          })}
         </div>
 
         <div className="mt-20 text-center">

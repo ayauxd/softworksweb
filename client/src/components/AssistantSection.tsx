@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowUp, X, Loader2, MessageCircle, Bot, HeadsetIcon, MessageSquare } from "lucide-react";
+import { ArrowUp, X, Loader2, Bot, HeadsetIcon } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 
 export default function AssistantSection() {
@@ -115,7 +115,6 @@ export default function AssistantSection() {
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Callback requested", { phoneNumber, discussTopic });
     // Reset the form and show success message
     setPhoneNumber("");
     setDiscussTopic("");
@@ -142,6 +141,7 @@ export default function AssistantSection() {
       } ${
         theme === 'dark' ? 'bg-[#002B36]' : 'bg-[#F5F5F5]'
       }`}
+      style={isChatModalOpen ? { WebkitBackdropFilter: 'blur(4px)' } : {}}
       onClick={() => { if (isChatModalOpen) setIsChatModalOpen(false); }}
     >
       {isChatModalOpen && (
@@ -310,20 +310,19 @@ export default function AssistantSection() {
               </div>
               {/* CTA Button */}
               <button
-                className={`mt-4 md:mt-0 inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] whitespace-nowrap ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'}`}
+                className={`mt-4 md:mt-0 inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] whitespace-nowrap ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'} ${
+                  !(calling || showCallbackForm) ? 'animate-pulse' : '' 
+                }`}
                 onClick={handleTalkToAgent}
                 disabled={calling || showCallbackForm}
               >
                 {calling ? (
                   <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                 ) : (
-                  // Animated phone icon
-                  <div className="relative mr-2">
-                    <HeadsetIcon className="w-5 h-5" />
-                    <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-white ring-2 ring-[#00BCD4] animate-ping"></span>
-                  </div>
+                  // Icon without pulse animation
+                  <HeadsetIcon className={`w-5 h-5 mr-2`} />
                 )}
-                {calling ? 'Connecting...' : showCallbackForm ? 'Request Sent' : 'Connect Now'}
+                {calling ? 'Connecting...' : showCallbackForm ? 'Request Sent' : 'Request Callback'}
               </button>
             </div>
           </div>

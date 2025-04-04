@@ -47,8 +47,8 @@ export default function BlogSection() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto lg:px-8">
+          {blogPosts.slice(0, 2).map((post) => (
             <a
               href={post.url}
               key={post.id}

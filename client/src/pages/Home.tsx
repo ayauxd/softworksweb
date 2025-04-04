@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import AssistantSection from "@/components/AssistantSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import CTASection from "@/components/CTASection";
 import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
@@ -36,11 +35,18 @@ export default function Home() {
     }`}>
       <Header isSticky={isScrolled} />
       <main>
-        <Hero />
-        <ServicesSection />
-        <AssistantSection />
-        <TestimonialsSection />
-        <CTASection />
+        <div className="mb-24 md:mb-32">
+          <Hero />
+        </div>
+        <div className="mb-24 md:mb-32">
+          <ServicesSection />
+        </div>
+        <div className="mb-24 md:mb-32">
+          <AssistantSection />
+        </div>
+        <div className="mb-24 md:mb-32">
+          <TestimonialsSection />
+        </div>
         <BlogSection />
       </main>
       <Footer />
