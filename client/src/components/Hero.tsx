@@ -52,46 +52,64 @@ export default function Hero() {
   return (
     <section 
       id="hero" 
-      className="relative min-h-[90vh] flex items-center pt-28 md:pt-36 pb-16 md:pb-24 px-4 sm:px-6 lg:px-12"
-      style={{
-        background: 'url("/assets/hero-image.png") center/cover no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
+      className="relative min-h-[90vh] flex items-center pt-28 md:pt-0 pb-16 md:pb-20"
     >
-      {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      {/* Full-width background image */}
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        <img 
+          src="/assets/hero-image.png"
+          alt="AI Neural Network Visualization" 
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Gradient overlay for better text contrast */}
+        <div className={`absolute inset-0 ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-r from-[#001B26]/90 via-[#002B36]/80 to-[#002B36]/70' 
+            : 'bg-gradient-to-r from-white/90 via-white/80 to-white/70'
+        }`}></div>
+      </div>
       
-      <div className="container mx-auto z-10 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         <div className="flex flex-col lg:flex-row items-center">
-          <div className="lg:w-2/3 mb-12 lg:mb-0 text-center lg:text-left">
-            <div className="bg-black bg-opacity-40 p-6 md:p-8 rounded-lg backdrop-blur-sm">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 md:mb-8 text-white">
-                Design Autonomous Systems That Think, Act, and Scale.
-              </h1>
-              <p className="text-base sm:text-lg mb-8 md:mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed text-gray-100">
-                We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows (AI systems that can act independently to achieve goals).
-              </p>
-              <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                <button
-                  onClick={handleOpenForm}
-                  className="inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                  aria-label="Schedule a Consultation"
-                >
-                  Schedule a Consultation
-                </button>
-                <a 
-                  href="#services-section" 
-                  onClick={(e) => scrollToSection('services-section', e)}
-                  className="inline-flex items-center gap-2 font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 transform hover:-translate-y-0.5 border border-white text-white hover:bg-white/20"
-                  aria-label="Learn More"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
+          <div className="lg:w-1/2 mb-12 lg:mb-0 text-center lg:text-left">
+            <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 md:mb-8 ${
+              theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+            }`}>
+              Design Autonomous Systems That Think, Act, and Scale.
+            </h1>
+            <p className={`text-base sm:text-lg mb-8 md:mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed ${
+              theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
+            }`}>
+              We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows (AI systems that can act independently to achieve goals).
+            </p>
+            <div className="flex flex-wrap justify-center lg:justify-start gap-5">
+              <button
+                onClick={handleOpenForm}
+                className="inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                aria-label="Schedule a Consultation"
+              >
+                Schedule a Consultation
+              </button>
+              <a 
+                href="#services-section" 
+                onClick={(e) => scrollToSection('services-section', e)}
+                className={`inline-flex items-center gap-2 font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 transform hover:-translate-y-0.5 ${
+                  theme === 'dark' 
+                    ? 'bg-[#001B26]/70 border border-[#4DD0E1] text-[#4DD0E1] hover:bg-[#4DD0E1]/20' 
+                    : 'bg-white/70 border border-[#00BCD4] text-[#00BCD4] hover:bg-[#E0F7FA]'
+                }`}
+                aria-label="Learn More"
+              >
+                <span>Learn More</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
+          </div>
+          <div className="lg:w-1/2 hidden lg:flex justify-center lg:justify-end">
+            {/* Decorative element only */}
+            <div className={`w-3/4 h-56 rounded-full blur-3xl opacity-30 ${
+              theme === 'dark' ? 'bg-[#00BCD4]' : 'bg-[#B2EBF2]'
+            }`}></div>
           </div>
         </div>
       </div>
