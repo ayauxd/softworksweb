@@ -1,59 +1,58 @@
 import SoftworksLogo from "./SoftworksLogo";
 import { Mail, Phone, MapPin, Linkedin, Facebook, Globe } from "lucide-react";
+import { useTheme } from "@/lib/theme-context";
+import { scrollToSection } from "@/lib/utils";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { theme } = useTheme();
   
-  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  // Removed local scrollToSection function, using imported utility
 
   return (
-    <footer className="bg-[#001824] text-white pt-16 pb-8 px-6 lg:px-12">
+    <footer 
+      className="pt-20 pb-10 px-6 lg:px-12 bg-[#F5F5F5] text-[#424242]"
+    >
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div>
-            <div className="flex items-center mb-4">
-              <SoftworksLogo className="w-8 h-8 mr-3" />
+            <a 
+              href="#hero" 
+              onClick={(e) => scrollToSection('hero', e)}
+              className="flex items-center mb-5 group transition-transform duration-300 hover:scale-105 w-fit"
+            >
+              <SoftworksLogo className="w-10 h-10 mr-3" />
               <div>
-                <h3 className="text-lg font-bold">Softworks</h3>
-                <p className="text-xs tracking-widest text-slate-400">TRADING COMPANY</p>
+                <h3 className="text-xl font-bold text-[#212121]">
+                  Softworks
+                </h3>
+                <p className="text-xs tracking-widest text-[#00BCD4]">TRADING COMPANY</p>
               </div>
-            </div>
-            <p className="text-slate-300 mb-6">
-              Designing intelligent autonomous systems that transform operations and drive efficiency.
+            </a>
+            <p className="mb-6 text-sm leading-relaxed text-[#616161]">
+              Building autonomous systems that think, act, and scale for modern enterprise challenges.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+              <a 
+                href="#" 
+                className="transition-colors duration-300 hover:scale-110 text-gray-500 hover:text-[#00BCD4]"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+              <a 
+                href="#" 
+                className="transition-colors duration-300 hover:scale-110 text-gray-500 hover:text-[#00BCD4]"
+                 aria-label="Facebook"
+             >
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="20" 
-                  height="20" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  className="lucide"
-                >
-                  <path d="M4 4h16v16H4z" />
-                  <path d="M16 8h2V6h-4v4h2z" />
-                  <path d="M8 16h2v-4h4v4h2V8h-8z" />
-                </svg>
-              </a>
-              <a href="#" className="text-slate-400 hover:text-[#30D5E8] transition-all duration-300 hover:scale-110">
+              <a 
+                href="#" 
+                 className="transition-colors duration-300 hover:scale-110 text-gray-500 hover:text-[#00BCD4]"
+                 aria-label="Website"
+             >
                 <Globe className="w-5 h-5" />
               </a>
             </div>
@@ -61,47 +60,149 @@ export default function Footer() {
           
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li><a href="#hero" onClick={(e) => scrollToSection('hero', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Home</a></li>
-              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Services</a></li>
-              <li><a href="#chatbot-section" onClick={(e) => scrollToSection('chatbot-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">How It Works</a></li>
-              <li><a href="#testimonials-section" onClick={(e) => scrollToSection('testimonials-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Case Studies</a></li>
-              <li><a href="#consultation-form" onClick={(e) => scrollToSection('consultation-form', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Contact</a></li>
+            <h3 className="text-lg font-semibold mb-5 text-[#212121]">
+              Navigation
+            </h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a 
+                  href="#hero" 
+                  onClick={(e) => scrollToSection('hero', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#services-section" 
+                  onClick={(e) => scrollToSection('services-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Services
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#chatbot-section" 
+                  onClick={(e) => scrollToSection('chatbot-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  How It Works
+                </a>
+              </li>
+               <li>
+                 <a 
+                   href="#blog-section" 
+                   onClick={(e) => scrollToSection('blog-section', e)} 
+                   className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                 >
+                   Insights
+                 </a>
+               </li>
+              <li>
+                <a 
+                  href="#testimonials-section" 
+                  onClick={(e) => scrollToSection('testimonials-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Testimonials
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#consultation-form" 
+                  onClick={(e) => scrollToSection('consultation-form', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
           
-          {/* Services */}
+          {/* Services Column (Simplified) */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Services</h3>
-            <ul className="space-y-3">
-              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">AI Integration</a></li>
-              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Workflow Automation</a></li>
-              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">LLM Tuning</a></li>
-              <li><a href="#mvp-section" onClick={(e) => scrollToSection('mvp-section', e)} className="text-slate-300 hover:text-[#30D5E8] transition-colors">Business Analytics</a></li>
+            <h3 className="text-lg font-semibold mb-5 text-[#212121]">
+              Core Services
+            </h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a 
+                  href="#services-section" 
+                  onClick={(e) => scrollToSection('services-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  AI Strategy Consulting
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#services-section" 
+                  onClick={(e) => scrollToSection('services-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Autonomous Agents
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#services-section" 
+                  onClick={(e) => scrollToSection('services-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Workflow Automation
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#services-section" 
+                  onClick={(e) => scrollToSection('services-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  API Integration
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#services-section" 
+                  onClick={(e) => scrollToSection('services-section', e)} 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
+                  Rapid Prototyping
+                </a>
+              </li>
             </ul>
           </div>
           
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-6">Contact Us</h3>
-            <ul className="space-y-4">
+            <h3 className="text-lg font-semibold mb-5 text-[#212121]">
+              Contact Us
+            </h3>
+            <ul className="space-y-4 text-sm">
               <li className="flex items-start">
-                <MapPin className="w-5 h-5 text-[#30D5E8] mr-3 mt-1" />
-                <span className="text-slate-300">
+                <MapPin className="w-4 h-4 text-[#00BCD4] mr-3 mt-0.5 flex-shrink-0" />
+                <span className="text-[#616161]">
                   7901 4TH ST N<br />
                   ST. PETERSBURG FL 33702
                 </span>
               </li>
               <li className="flex items-center">
-                <Phone className="w-5 h-5 text-[#30D5E8] mr-3" />
-                <a href="tel:+14155552671" className="text-slate-300 hover:text-[#30D5E8] transition-colors">
+                <Phone className="w-4 h-4 text-[#00BCD4] mr-3 flex-shrink-0" />
+                <a 
+                  href="tel:+14155552671" 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
                   (415) 555-2671
                 </a>
               </li>
               <li className="flex items-center">
-                <Mail className="w-5 h-5 text-[#30D5E8] mr-3" />
-                <a href="mailto:info@softworkstrading.com" className="text-slate-300 hover:text-[#30D5E8] transition-colors">
+                <Mail className="w-4 h-4 text-[#00BCD4] mr-3 flex-shrink-0" />
+                <a 
+                  href="mailto:info@softworkstrading.com" 
+                  className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+                >
                   info@softworkstrading.com
                 </a>
               </li>
@@ -109,15 +210,24 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="border-t border-slate-800 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-slate-400 text-sm mb-4 md:mb-0">
+        <div className="border-t pt-8 mt-8 border-gray-300">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm">
+            <p className="mb-4 md:mb-0 text-[#616161]">
               &copy; {year} Softworks Trading Company. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-sm text-slate-400 hover:text-[#30D5E8] transition-colors">Privacy Policy</a>
-              <a href="#" className="text-sm text-slate-400 hover:text-[#30D5E8] transition-colors">Terms of Service</a>
-              <a href="#" className="text-sm text-slate-400 hover:text-[#30D5E8] transition-colors">Cookie Policy</a>
+              <a 
+                href="#" 
+                className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+              >
+                Privacy Policy
+              </a>
+              <a 
+                href="#" 
+                className="transition-colors duration-300 text-[#616161] hover:text-[#00BCD4]"
+              >
+                Terms of Service
+              </a>
             </div>
           </div>
         </div>

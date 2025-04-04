@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Phone, ArrowUp, X, Loader2, MessageCircle } from "lucide-react";
+import { ArrowUp, X, Loader2, MessageCircle, Bot, HeadsetIcon, MessageSquare } from "lucide-react";
+import { useTheme } from "@/lib/theme-context";
 
 export default function AssistantSection() {
+  const { theme } = useTheme();
   const [inputValue, setInputValue] = useState("");
   const [showCallbackForm, setShowCallbackForm] = useState(false);
   const [calling, setCalling] = useState(false);
@@ -10,7 +12,9 @@ export default function AssistantSection() {
   const [messages, setMessages] = useState<{text: string, isUser: boolean}[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [conversationStarted, setConversationStarted] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   
   const suggestions = [
     "Integrate agentic AI",
@@ -26,6 +30,12 @@ export default function AssistantSection() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  useEffect(() => {
+    if (isChatModalOpen) {
+      inputRef.current?.focus();
+    }
+  }, [isChatModalOpen]);
 
   const handleSuggestionClick = (suggestion: string) => {
     setInputValue(suggestion);
@@ -82,6 +92,11 @@ export default function AssistantSection() {
       setConversationStarted(true);
     }
     
+    // Open the modal when the first message is submitted
+    if (!isChatModalOpen) {
+       setIsChatModalOpen(true);
+    }
+    
     // Simulate bot response
     simulateBotResponse(inputValue);
     
@@ -95,7 +110,7 @@ export default function AssistantSection() {
     setTimeout(() => {
       setCalling(false);
       setShowCallbackForm(true);
-    }, 2000); // Delay as per requirements: 2 seconds
+    }, 1000); // Reduced delay slightly
   };
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
@@ -108,7 +123,7 @@ export default function AssistantSection() {
     
     // Add confirmation message to chat
     setMessages(prev => [...prev, {
-      text: "Thanks! One of our AI adoption agents will call you shortly to discuss your needs.",
+      text: "Thanks! One of our AI adoption agents will call you shortly.",
       isUser: false
     }]);
     
@@ -118,43 +133,73 @@ export default function AssistantSection() {
   };
 
   return (
-    <section id="chatbot-section" className="py-20 px-6 lg:px-12 bg-[#0C1F25]">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">How can we help you today?</h2>
-          <p className="text-lg text-slate-300">
-            Ask us anything about AI workflows, automation, or agentic system design.
-          </p>
+    <section
+      id="chatbot-section"
+      className={`${
+        isChatModalOpen
+          ? 'fixed inset-0 z-50 flex flex-col p-8 bg-black/70 backdrop-blur-sm'
+          : 'py-24 md:py-32 px-6 lg:px-12'
+      } ${
+        theme === 'dark' ? 'bg-[#002B36]' : 'bg-[#F5F5F5]'
+      }`}
+      onClick={() => { if (isChatModalOpen) setIsChatModalOpen(false); }}
+    >
+      {isChatModalOpen && (
+        <div
+          className="absolute top-4 right-4 z-10"
+          onClick={(e) => { e.stopPropagation(); setIsChatModalOpen(false); }}
+        >
+          <button
+            className={`p-2 rounded-full ${
+              theme === 'dark' ? 'bg-[#003747] text-white' : 'bg-white text-[#212121]'
+            } shadow-md`}
+            aria-label="Close chat"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
-
-        {/* Quick Action Chips - Responsive layout */}
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-10">
-          {suggestions.map((suggestion, index) => (
-            <button 
-              key={index}
-              className="suggestion-button transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] bg-[#003848]/50 border border-[#30D5E8]/30 text-white px-5 py-2 rounded-full text-sm hover:bg-[#003848] hover:border-[#30D5E8]/50 hover:scale-105 hover:glow"
-              onClick={() => handleSuggestionClick(suggestion)}
-            >
-              {suggestion}
-            </button>
-          ))}
-        </div>
+      )}
+      <div className={`container mx-auto max-w-4xl flex-grow flex flex-col`}>
+        {!isChatModalOpen && (
+          <div className="text-center mb-16">
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 ${
+              theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+            }`}>
+              Need Help Building Your AI Solution?
+            </h2>
+            <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${
+              theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
+            }`}>
+              Ask our AI assistant below, or connect directly with a workflow architect.
+            </p>
+          </div>
+        )}
 
         {/* Chat Area */}
-        <div className={`bg-[#001824] rounded-xl border border-[#30D5E8]/20 shadow-lg transition-all duration-300 overflow-hidden ${conversationStarted ? 'mb-6' : 'mb-0'}`}>
-          {/* Messages Area - Shows only when conversation has started */}
+        <div 
+          onClick={(e) => { if (isChatModalOpen) e.stopPropagation(); }}
+          className={`rounded-xl border shadow-lg transition-all duration-300 overflow-hidden flex flex-col ${
+            isChatModalOpen
+              ? 'flex-grow w-full'
+              : 'mb-10'
+          } ${
+            theme === 'dark'
+              ? 'bg-[#001B26] border-[#00BCD4]/20'
+              : 'bg-white border-gray-200'
+          }`}>
+          {/* Messages Area - Conditionally rendered */}
           {conversationStarted && (
-            <div className="p-4 max-h-[300px] overflow-y-auto">
+            <div className={`p-4 overflow-y-auto flex-grow`}>
               {messages.map((message, index) => (
                 <div 
                   key={index} 
-                  className={`mb-4 ${message.isUser ? 'text-right' : 'text-left'} max-w-full animate-fadeIn`}
+                  className={`${message.isUser ? 'self-end' : 'self-start'} max-w-[85%] animate-fadeIn`}
                 >
                   <div 
-                    className={`rounded-2xl px-4 py-3 inline-block max-w-[85%] ${
+                    className={`rounded-xl px-4 py-3 inline-block break-words ${
                       message.isUser 
-                        ? 'bg-[#3B82F6] text-white ml-auto rounded-tr-none' // User messages: light blue, right-aligned 
-                        : 'bg-[#002836] text-white mr-auto rounded-tl-none'  // AI messages: darker, left-aligned
+                        ? 'bg-[#00BCD4] text-white ml-auto rounded-br-none'
+                        : `${theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'} mr-auto rounded-bl-none`
                     }`}
                   >
                     {message.text}
@@ -163,12 +208,14 @@ export default function AssistantSection() {
               ))}
               
               {isTyping && (
-                <div className="mb-4 text-left">
-                  <div className="bg-[#002836] text-white rounded-2xl px-4 py-3 rounded-tl-none inline-block">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 rounded-full bg-[#30D5E8] animate-pulse"></div>
-                      <div className="w-2 h-2 rounded-full bg-[#30D5E8] animate-pulse delay-100"></div>
-                      <div className="w-2 h-2 rounded-full bg-[#30D5E8] animate-pulse delay-200"></div>
+                <div className="self-start animate-fadeIn">
+                  <div className={`rounded-xl px-4 py-3 rounded-bl-none inline-block ${
+                    theme === 'dark' ? 'bg-[#003747] text-[#E0E0E0]' : 'bg-[#E0F7FA] text-[#212121]'
+                  }`}>
+                    <div className="flex space-x-1.5 items-center">
+                      <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse`}></div>
+                      <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse delay-150`}></div>
+                      <div className={`w-2 h-2 rounded-full bg-[#00BCD4] animate-pulse delay-300`}></div>
                     </div>
                   </div>
                 </div>
@@ -177,20 +224,54 @@ export default function AssistantSection() {
             </div>
           )}
 
+          {/* Suggestion Chips */}
+          <div className="p-4 border-t flex flex-wrap items-center gap-3 justify-start ${
+            theme === 'dark' ? 'border-[#00BCD4]/20' : 'border-gray-200'
+          }">
+            {/* Action Button Group */}
+            <div className="flex flex-wrap gap-3">
+              {suggestions.map((suggestion, index) => (
+                <button
+                  key={index}
+                  className={`suggestion-button transition-all duration-300 px-4 py-2 rounded-md text-sm font-medium border hover:-translate-y-0.5 shadow-sm ${
+                    theme === 'dark'
+                      ? 'bg-transparent border-[#4DD0E1]/60 text-[#4DD0E1] hover:bg-[#4DD0E1]/10 hover:border-[#4DD0E1]'
+                      : 'bg-white border-gray-300 text-[#424242] hover:bg-[#E0F7FA] hover:border-[#00BCD4]'
+                  }`}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Input Field */}
-          <form onSubmit={handleSubmit} className="p-4 border-t border-[#30D5E8]/10">
-            <div className="relative">
-              <input 
-                type="text" 
-                placeholder="What would you like help with today?..." 
-                className="w-full bg-[#003848]/50 border border-[#30D5E8]/30 rounded-lg py-4 px-6 pr-16 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
+          <form onSubmit={handleSubmit} className={`p-4 border-t ${
+            theme === 'dark' ? 'border-[#00BCD4]/20' : 'border-gray-200'
+          }`}>
+            <div className="flex items-center gap-3">
+              <input
+                type="text"
+                placeholder="Ask about AI integration or workflow automation..."
+                className={`flex-grow rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:ring-[#00BCD4] transition-shadow ${
+                  theme === 'dark'
+                    ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]'
+                    : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'
+                }`}
                 value={inputValue}
                 onChange={handleInputChange}
+                ref={inputRef}
               />
-              <button 
+              <button
                 type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 w-12 h-12 flex items-center justify-center bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] rounded-full transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(48,213,232,0.5)]"
+                className={`w-11 h-11 flex items-center justify-center rounded-lg transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] ${
+                  inputValue.trim()
+                  ? 'bg-[#00BCD4] hover:bg-[#00ACC1] text-white'
+                  : theme === 'dark' ? 'bg-[#003747] text-gray-500 cursor-not-allowed' : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                 } ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'}`}
                 disabled={!inputValue.trim()}
+                aria-label="Send message"
               >
                 <ArrowUp className="h-5 w-5" />
               </button>
@@ -198,92 +279,114 @@ export default function AssistantSection() {
           </form>
         </div>
 
-        {/* Talk to an AI Adoption Agent Section */}
-        <div className="bg-[#001824] rounded-xl p-6 lg:p-8 border border-[#30D5E8]/20 mt-10">
-          {!showCallbackForm ? (
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="md:w-1/3 flex justify-center">
-                <div className="w-32 h-32 md:w-40 md:h-40 bg-[#002836] rounded-full flex items-center justify-center border border-[#30D5E8]/30 shadow-[0_0_20px_rgba(48,213,232,0.2)]">
-                  <Phone className="w-16 h-16 text-[#30D5E8]/70" />
-                </div>
-              </div>
-              
-              <div className="md:w-2/3">
-                <h3 className="text-xl lg:text-2xl font-bold mb-3">Talk to an AI Adoption Agent</h3>
-                <p className="text-slate-300 mb-5">
-                  Not sure where to start with AI? Our agents are here to help you plan integrations, streamline workflows, and create custom automation strategies.
+        {/* New Call-to-Action Section */} 
+        {!isChatModalOpen && (
+          <div className={`mt-8 flex flex-col md:flex-row items-center rounded-xl border shadow-md overflow-hidden ${
+            theme === 'dark' 
+              ? 'bg-[#001B26] border-[#00BCD4]/20' 
+              : 'bg-white border-gray-200'
+          }`}>
+            {/* Image Area */}
+            <div className="w-full md:w-1/3 h-48 md:h-full flex-shrink-0">
+              <img 
+                src="/images/call-center-workstation.jpg" 
+                alt="Call center workstation with headset" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Content Area */}
+            <div className="flex-grow p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-center md:text-left">
+                <h3 className={`text-xl lg:text-2xl font-semibold mb-2 ${
+                  theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+                }`}>
+                  Speak Directly to an Architect
+                </h3>
+                <p className={`text-base ${
+                  theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
+                }`}>
+                  Get personalized guidance for your AI project.
                 </p>
-                
-                <button 
-                  className="flex items-center bg-[#EF4444] hover:bg-[#F87171] text-white font-medium px-6 py-3 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(239,68,68,0.5)] hover:translate-y-[-2px]"
-                  onClick={handleTalkToAgent}
-                  disabled={calling}
-                >
-                  {calling ? (
-                    <>
-                      <span className="relative w-5 h-5 mr-2">
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-[#EF4444] opacity-75 animate-ping"></span>
-                        <span className="relative inline-flex rounded-full h-5 w-5 bg-[#EF4444]"></span>
-                      </span>
-                      Calling...
-                    </>
-                  ) : (
-                    <>Speak to an Agent</>
-                  )}
-                </button>
               </div>
+              {/* CTA Button */}
+              <button
+                className={`mt-4 md:mt-0 inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] whitespace-nowrap ${theme === 'dark' ? 'focus:ring-offset-[#001B26]' : 'focus:ring-offset-white'}`}
+                onClick={handleTalkToAgent}
+                disabled={calling || showCallbackForm}
+              >
+                {calling ? (
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                ) : (
+                  // Animated phone icon
+                  <div className="relative mr-2">
+                    <HeadsetIcon className="w-5 h-5" />
+                    <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-white ring-2 ring-[#00BCD4] animate-ping"></span>
+                  </div>
+                )}
+                {calling ? 'Connecting...' : showCallbackForm ? 'Request Sent' : 'Connect Now'}
+              </button>
             </div>
-          ) : (
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl lg:text-2xl font-bold">Request a Callback</h3>
-                <button 
-                  onClick={() => setShowCallbackForm(false)}
-                  className="text-slate-400 hover:text-white p-2 rounded-full hover:bg-[#002836] transition-colors"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              
-              <form onSubmit={handleCallbackSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-1">
-                    Your Phone Number
-                  </label>
-                  <input 
-                    id="phone"
-                    type="tel" 
-                    className="w-full bg-[#003848]/50 border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="topic" className="block text-sm font-medium text-slate-300 mb-1">
-                    What would you like to discuss?
-                  </label>
-                  <textarea 
-                    id="topic"
-                    className="w-full bg-[#003848]/50 border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
-                    rows={4}
-                    value={discussTopic}
-                    onChange={(e) => setDiscussTopic(e.target.value)}
-                    required
-                  />
-                </div>
-                
-                <button 
-                  type="submit"
-                  className="w-full bg-[#EF4444] hover:bg-[#F87171] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(239,68,68,0.5)]"
-                >
-                  Request Callback
-                </button>
-              </form>
+          </div>
+        )}
+
+        {/* Callback Form Modal (or inline section) - Simplified example */}
+        {showCallbackForm && (
+          <div className={`fixed inset-0 z-50 flex items-center justify-center p-4`}>
+            <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setShowCallbackForm(false)}></div>
+            <div className={`relative w-full max-w-md p-6 rounded-xl border shadow-lg ${
+              theme === 'dark' ? 'bg-[#001B26] border-[#00BCD4]/20' : 'bg-white border-gray-200'
+          }`}>
+             <div className="flex justify-between items-center mb-4">
+               <h3 className={`text-xl font-bold ${theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'}`}>
+                 Request a Callback
+               </h3>
+               <button 
+                 onClick={() => setShowCallbackForm(false)}
+                 className={`p-1.5 rounded-full transition-colors ${theme === 'dark' ? 'text-gray-400 hover:text-white hover:bg-[#003747]' : 'text-gray-500 hover:text-black hover:bg-gray-100'}`}
+                 aria-label="Close callback form"
+               >
+                 <X className="h-5 w-5" />
+               </button>
+             </div>
+             <form onSubmit={handleCallbackSubmit} className="space-y-4">
+               <div>
+                 <label htmlFor="phone" className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                   Your Phone Number
+                 </label>
+                 <input 
+                   id="phone"
+                   type="tel" 
+                   placeholder="+1 (555) 123-4567"
+                   className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                   value={phoneNumber}
+                   onChange={(e) => setPhoneNumber(e.target.value)}
+                   required
+                 />
+               </div>
+               <div>
+                 <label htmlFor="topic" className={`block text-sm font-medium mb-1 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                   What would you like to discuss?
+                 </label>
+                 <textarea 
+                   id="topic"
+                   placeholder="Briefly describe your project or question..."
+                   className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow resize-none ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#001B26]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                   rows={3}
+                   value={discussTopic}
+                   onChange={(e) => setDiscussTopic(e.target.value)}
+                   required
+                 />
+               </div>
+               <button 
+                 type="submit"
+                 className="w-full bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-6 rounded-md transition-all duration-300 shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4]"
+               >
+                 Request Callback
+               </button>
+             </form>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );

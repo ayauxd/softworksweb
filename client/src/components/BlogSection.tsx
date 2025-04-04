@@ -1,77 +1,101 @@
 import { ArrowRight } from "lucide-react";
+import { useTheme } from "@/lib/theme-context";
 
 const blogPosts = [
   {
     id: 1,
     title: "How Autonomous AI is Revolutionizing Supply Chain Management",
-    summary: "Discover how companies are implementing agentic AI solutions to automate inventory forecasting and logistics.",
-    image: "/assets/blog-supply-chain.jpg",
+    summary: "Discover how companies implement agentic AI solutions to automate inventory forecasting, optimize logistics, and reduce operational costs.",
+    image: "/assets/blog-image-placeholder-1.png",
     url: "#"
   },
   {
     id: 2,
-    title: "The Future of Work: AI Agents as Team Members",
-    summary: "Explore how businesses are integrating AI agents into their teams for enhanced productivity and decision-making.",
-    image: "/assets/blog-future-work.jpg",
+    title: "The Future of Work: Integrating AI Agents into Your Team",
+    summary: "Explore the benefits and challenges of incorporating AI agents as collaborative members for enhanced productivity and decision-making.",
+    image: "/assets/blog-image-placeholder-2.png",
     url: "#"
   },
   {
     id: 3,
-    title: "Case Study: 40% Efficiency Gains with Workflow Automation",
-    summary: "How a Fortune 500 company transformed their operations with Softworks Trading Company's AI solutions.",
-    image: "/assets/blog-case-study.jpg",
+    title: "Case Study: 40% Efficiency Gains via Workflow Automation",
+    summary: "Learn how a Fortune 500 company partnered with Softworks to transform operations using our bespoke AI workflow automation solutions.",
+    image: "/assets/blog-image-placeholder-3.png",
     url: "#"
   }
 ];
 
 export default function BlogSection() {
+  const { theme } = useTheme();
+
   return (
-    <section className="py-20 px-6 lg:px-12 bg-[#00202e]">
+    <section id="blog-section" className={`py-24 md:py-32 px-6 lg:px-12 ${
+      theme === 'dark' ? 'bg-[#002B36]' : 'bg-white'
+    }`}>
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">Insights & Innovation</h2>
-          <p className="text-slate-300 text-lg max-w-2xl mx-auto">
-            Learn how businesses are using AI to scale faster and work smarter.
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 ${
+             theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+          }`}>
+            Insights & Innovation
+          </h2>
+          <div className={`w-20 h-1 bg-[#00BCD4] mx-auto mb-8`}></div>
+          <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
+          }`}>
+            Explore the latest trends in AI automation and learn how businesses leverage intelligent systems to scale smarter.
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
-            <div 
+            <a
+              href={post.url}
               key={post.id}
-              className="bg-gradient-to-b from-[#002836] to-[#00202e] rounded-lg overflow-hidden border border-[#30D5E8]/20 hover:border-[#30D5E8]/40 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(48,213,232,0.2)]"
+              className={`block rounded-xl overflow-hidden border transition-all duration-300 group hover:-translate-y-2 ${
+                theme === 'dark'
+                  ? 'bg-[#001B26] border-[#00BCD4]/20 hover:shadow-[0_8px_30px_rgba(0,188,212,0.15)] hover:border-[#00BCD4]/40'
+                  : 'bg-white border-gray-200 hover:shadow-xl hover:border-gray-300'
+              }`}
             >
-              <div className="h-48 bg-[#001824] relative">
-                <div className="w-full h-full flex items-center justify-center bg-[#001824] text-[#30D5E8]/70">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <path d="M10 13v-2.5a2.5 2.5 0 0 1 5 0V13"></path>
-                    <path d="M8 13h8v5a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-5z"></path>
-                  </svg>
-                </div>
-              </div>
+              <div className="h-48 overflow-hidden">
+                 <img 
+                   src={post.image} 
+                   alt={post.title} 
+                   className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+                     theme === 'dark' ? 'opacity-80 group-hover:opacity-100' : ''
+                   }`}
+                  />
+               </div>
               
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3">{post.title}</h3>
-                <p className="text-slate-300 mb-4 line-clamp-2">{post.summary}</p>
-                <a 
-                  href={post.url} 
-                  className="inline-flex items-center text-[#30D5E8] hover:text-[#4cdfef] font-medium transition-colors"
+                <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 group-hover:text-[#00BCD4] ${
+                   theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+                }`}>
+                  {post.title}
+                </h3>
+                <p className={`mb-4 line-clamp-3 text-sm ${
+                   theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
+                }`}>
+                  {post.summary}
+                </p>
+                <div
+                  className="inline-flex items-center text-[#00BCD4] font-medium mt-2"
                 >
-                  Read More <ArrowRight className="ml-2 w-4 h-4" />
-                </a>
+                  Read More <ArrowRight className="ml-1.5 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
         
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center">
           <a
             href="#"
-            className="inline-block bg-transparent hover:bg-[#30D5E8]/10 text-[#30D5E8] border border-[#30D5E8] font-medium py-3 px-8 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(48,213,232,0.3)]"
+            className={`inline-flex items-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-8 rounded-md shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] ${theme === 'dark' ? 'focus:ring-offset-[#002B36]' : 'focus:ring-offset-white'}`}
           >
-            View All Articles
+            <span>View All Insights</span>
+             <ArrowRight className="ml-2 w-5 h-5" />
           </a>
         </div>
       </div>

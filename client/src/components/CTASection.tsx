@@ -1,7 +1,9 @@
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight, Send, CheckCircle } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "@/lib/theme-context";
 
 export default function CTASection() {
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     fullName: "",
     company: "",
@@ -43,138 +45,146 @@ export default function CTASection() {
     }, 1500);
   };
 
-  const scrollToConsultation = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const formSection = document.getElementById('consultation-form');
-    if (formSection) {
-      formSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section id="consultation-form" className="py-20 px-6 lg:px-12 bg-gradient-to-br from-[#002836] to-[#003848]">
-      <div className="container mx-auto max-w-4xl">
-        <div className="bg-[#00202e]/50 backdrop-blur-md p-10 lg:p-16 rounded-2xl border border-[#30D5E8]/20 shadow-2xl">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">Ready to Transform Your Operations?</h2>
-            <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
-              Get started with a consultation to see how our autonomous systems can revolutionize your business workflows.
-            </p>
-          </div>
+    <section id="consultation-form" className={`py-24 md:py-32 px-6 lg:px-12 ${
+      theme === 'dark' ? 'bg-[#002B36]' : 'bg-white'
+    }`}>
+      <div className="container mx-auto max-w-3xl">
+        <div className="text-center mb-16">
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 ${
+            theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+          }`}>
+            Ready to Build Your Autonomous Workflow?
+          </h2>
+          <div className={`w-20 h-1 bg-[#00BCD4] mx-auto mb-8`}></div>
+          <p className={`text-lg leading-relaxed max-w-2xl mx-auto ${
+            theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
+          }`}>
+            Schedule a free consultation to explore how our custom AI solutions can drive efficiency and innovation for your business.
+          </p>
+        </div>
           
-          {submitted ? (
-            <div className="bg-[#30D5E8]/10 border border-[#30D5E8]/30 text-white p-6 rounded-lg text-center mb-8 animate-fadeIn">
-              <h3 className="text-xl font-semibold mb-2">Thank you for reaching out!</h3>
-              <p>We've received your request and will get back to you within 24 hours.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="fullName" className="block text-sm font-medium mb-2">
-                    Full Name*
-                  </label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    className="w-full bg-[#001824] border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium mb-2">
-                    Company (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                    className="w-full bg-[#001824] border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
-                  />
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email*
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full bg-[#001824] border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
-                    required
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    Phone Number*
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full bg-[#001824] border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
-                    required
-                  />
-                </div>
+        {submitted ? (
+          <div className={`p-6 rounded-lg text-center mb-8 animate-fadeIn border ${
+            theme === 'dark' 
+              ? 'bg-[#003747] border-[#00BCD4]/30 text-[#F5F5F5]' 
+              : 'bg-[#E0F7FA] border-[#4DD0E1]/50 text-[#006064]'
+          }`}>
+            <CheckCircle className="w-8 h-8 mx-auto mb-3 text-[#00BCD4]" />
+            <h3 className="text-xl font-semibold mb-1">Thank you!</h3>
+            <p>Your consultation request has been received. We'll contact you within 24 hours.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="fullName" className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                  Full Name*
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#002B36]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                  required
+                />
               </div>
               
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message*
+                <label htmlFor="company" className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                  Company
                 </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  value={formData.message}
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
                   onChange={handleChange}
-                  className="w-full bg-[#001824] border border-[#30D5E8]/30 rounded-lg py-3 px-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#30D5E8]/50 focus:border-transparent"
+                  className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#002B36]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="email" className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                  Email*
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#002B36]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
                   required
-                ></textarea>
+                />
               </div>
               
-              <div className="text-center">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex items-center justify-center bg-[#30D5E8] hover:bg-[#4cdfef] text-[#0C1F25] font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(48,213,232,0.5)] min-w-[200px]"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#0C1F25]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      Send Request
-                      <Send className="ml-2 w-5 h-5" />
-                    </>
-                  )}
-                </button>
+              <div>
+                <label htmlFor="phone" className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                  Phone Number*
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+1 (555) 123-4567"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#002B36]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                  required
+                />
               </div>
-            </form>
-          )}
-          
-          <div className="text-center mt-12 text-sm text-slate-400">
-            <p>No commitment required. Our team will provide a personalized demo based on your specific business needs.</p>
-          </div>
+            </div>
+            
+            <div>
+              <label htmlFor="message" className={`block text-sm font-medium mb-1.5 ${theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#424242]'}`}>
+                Tell us about your project*
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows={4}
+                placeholder="Describe your goals, challenges, or specific AI needs..."
+                value={formData.message}
+                onChange={handleChange}
+                className={`w-full rounded-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] transition-shadow resize-vertical ${theme === 'dark' ? 'bg-[#003747] border border-[#00BCD4]/30 text-[#F5F5F5] placeholder-gray-400 focus:ring-offset-[#002B36]' : 'bg-white border border-gray-300 text-[#212121] placeholder-gray-500 focus:ring-offset-white'}`}
+                required
+              ></textarea>
+            </div>
+            
+            <div className="text-center pt-4">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`inline-flex items-center justify-center bg-[#00BCD4] hover:bg-[#00ACC1] text-white font-medium py-3 px-8 rounded-md transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00BCD4] min-w-[240px] disabled:opacity-60 disabled:cursor-not-allowed ${theme === 'dark' ? 'focus:ring-offset-[#002B36]' : 'focus:ring-offset-white'}`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting Request...
+                  </>
+                ) : (
+                  <>
+                    Schedule Free Consultation
+                    <Send className="ml-2 w-4 h-4" />
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
+        )}
+        
+        <div className={`text-center mt-10 text-sm ${
+          theme === 'dark' ? 'text-[#B0BEC5]' : 'text-[#616161]'
+        }`}>
+          <p>We respect your privacy. No commitment required for the initial consultation.</p>
         </div>
       </div>
     </section>

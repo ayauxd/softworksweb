@@ -1,45 +1,60 @@
-import NeuralTree from "./NeuralTree";
+import NeuralNetwork from "./NeuralNetwork";
+import { useTheme } from "@/lib/theme-context";
+import { scrollToSection } from "@/lib/utils";
+import { Phone } from "lucide-react";
 
 export default function Hero() {
-  const scrollToSection = (sectionId: string, e: React.MouseEvent) => {
-    e.preventDefault();
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const { theme } = useTheme();
+  
+  // Removed local scrollToSection function, using imported utility
 
   return (
-    <section id="hero" className="pt-24 md:pt-32 pb-10 md:pb-20 px-4 sm:px-6 lg:px-12">
+    <section id="hero" className={`pt-28 md:pt-36 pb-16 md:pb-24 px-4 sm:px-6 lg:px-12 ${
+      theme === 'dark' ? 'bg-[#002B36]' : 'bg-white'
+    }`}>
       <div className="container mx-auto">
         <div className="flex flex-col lg:flex-row items-center">
-          <div className="lg:w-1/2 mb-8 lg:mb-0 text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4 md:mb-6">
-              Build Smarter Workflows with Autonomous AI Systems
+          <div className="lg:w-1/2 mb-12 lg:mb-0 text-center lg:text-left">
+            <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 md:mb-8 ${
+              theme === 'dark' ? 'text-[#F5F5F5]' : 'text-[#212121]'
+            }`}>
+              Design Autonomous Systems That Think, Act, and Scale.
             </h1>
-            <p className="text-slate-300 text-base sm:text-lg mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0">
-              We help you rethink operations using intelligent, agentic processes designed to scale.
+            <p className={`text-base sm:text-lg mb-8 md:mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed ${
+              theme === 'dark' ? 'text-[#E0E0E0]' : 'text-[#424242]'
+            }`}>
+              We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows.
             </p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-5">
               <a 
                 href="#consultation-form" 
                 onClick={(e) => scrollToSection('consultation-form', e)}
-                className="inline-block bg-[#EF4444] hover:bg-[#FF6B6B] text-white font-medium py-3 px-6 md:px-8 rounded-md transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(239,68,68,0.5)] transform hover:-translate-y-1"
+                className="inline-flex items-center bg-[#00BCD4] hover:bg-[#00E5FF] text-white font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 shadow-lg hover:shadow-[0_0_20px_rgba(0,188,212,0.5)] transform hover:-translate-y-1"
+                aria-label="Schedule a Consultation"
               >
                 Schedule a Consultation
               </a>
               <a 
-                href="#mvp-section" 
-                onClick={(e) => scrollToSection('mvp-section', e)}
-                className="inline-block bg-transparent border border-slate-600 hover:border-white text-white font-medium py-3 px-6 md:px-8 rounded-md transition-all duration-300 transform hover:-translate-y-1"
+                href="#chatbot-section" 
+                onClick={(e) => scrollToSection('chatbot-section', e)}
+                className={`inline-flex items-center gap-2 font-medium py-3 px-6 md:px-8 h-[44px] rounded-md transition-all duration-300 transform hover:-translate-y-1 ${
+                  theme === 'dark' 
+                    ? 'border border-[#4DD0E1] text-[#4DD0E1] hover:bg-[#4DD0E1]/10' 
+                    : 'border border-[#00BCD4] text-[#00BCD4] hover:bg-[#E0F7FA]'
+                }`}
+                aria-label="Speak to a Workflow Architect"
               >
-                Explore Services
+                <Phone className="w-4 h-4" />
+                <span>Speak to a Workflow Architect</span>
               </a>
             </div>
           </div>
           <div className="lg:w-1/2 flex justify-center lg:justify-end">
-            <div className="w-4/5 md:w-full max-w-sm lg:max-w-md">
-              <NeuralTree className="w-full" />
+            <div className="w-4/5 md:w-full max-w-lg relative">
+              <div className={`absolute inset-0 rounded-full blur-3xl opacity-30 ${
+                theme === 'dark' ? 'bg-[#00BCD4]' : 'bg-[#B2EBF2]'
+              }`}></div>
+              <NeuralNetwork className="w-full relative z-10" />
             </div>
           </div>
         </div>

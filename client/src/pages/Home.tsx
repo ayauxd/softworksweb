@@ -1,15 +1,17 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import AssistantSection from "@/components/AssistantSection";
-import MVPSection from "@/components/MVPSection";
+import ServicesSection from "@/components/ServicesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
 import BlogSection from "@/components/BlogSection";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
+import { useTheme } from "@/lib/theme-context";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,11 +29,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#00202e] text-white">
+    <div className={`min-h-screen ${
+      theme === 'dark' 
+        ? 'bg-[#002B36] text-white' 
+        : 'bg-white text-[#212121]'
+    }`}>
       <Header isSticky={isScrolled} />
       <main>
         <Hero />
-        <MVPSection />
+        <ServicesSection />
         <AssistantSection />
         <TestimonialsSection />
         <CTASection />
