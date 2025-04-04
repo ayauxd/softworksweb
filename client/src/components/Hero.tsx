@@ -52,7 +52,7 @@ export default function Hero() {
   return (
     <section 
       id="hero" 
-      className="relative min-h-screen w-full flex items-center"
+      className="relative min-h-[80vh] w-full flex items-center mb-[-1px]"
     >
       {/* Full-screen background image */}
       <div className="absolute inset-0 w-full h-full">
@@ -61,20 +61,20 @@ export default function Hero() {
           alt="AI Neural Network Visualization" 
           className="w-full h-full object-cover object-center"
         />
-        {/* Dark overlay for better text contrast */}
+        {/* Dark overlay for better text contrast with extended gradient */}
         <div className={`absolute inset-0 ${
           theme === 'dark' 
-            ? 'bg-gradient-to-b from-black/60 to-[#001B26]/85' 
-            : 'bg-gradient-to-b from-black/30 to-white/70'
+            ? 'bg-gradient-to-b from-black/60 via-[#001B26]/85 to-[#002B36]' 
+            : 'bg-gradient-to-b from-black/30 via-white/70 to-[#F5F5F5]'
         }`}></div>
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-16">
         <div className="max-w-4xl">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 md:mb-8 text-white drop-shadow-md">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-white drop-shadow-md">
             Design Autonomous Systems That Think, Act, and Scale.
           </h1>
-          <p className="text-base sm:text-lg mb-8 md:mb-10 max-w-xl leading-relaxed text-white/90 drop-shadow">
+          <p className="text-base sm:text-lg mb-6 max-w-xl leading-relaxed text-white/90 drop-shadow">
             We don't just integrate AI—we rewire how your operations think using adaptive agentic workflows (AI systems that can act independently to achieve goals).
           </p>
           <div className="flex flex-wrap gap-5">

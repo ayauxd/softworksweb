@@ -35,17 +35,17 @@ export default function Home() {
     }`}>
       <Header isSticky={isScrolled} />
       <main>
-        <div className="mb-24 md:mb-32">
+        <div className="mb-0">
           <Hero />
         </div>
-        <div className="mb-24 md:mb-32">
+        <div className="mb-16 md:mb-20">
           <ServicesSection />
         </div>
-        <div className="mb-24 md:mb-32">
-          <AssistantSection />
-        </div>
-        <div className="mb-24 md:mb-32">
+        <div className="mb-16 md:mb-20">
           <TestimonialsSection />
+        </div>
+        <div className="mb-16 md:mb-20">
+          <AssistantSection />
         </div>
         <BlogSection />
       </main>
