@@ -38,6 +38,45 @@ export default function ServicesSection() {
     services.forEach((service, index) => {
       console.log(`[Services ${index}] Using image path:`, service.image);
     });
+    
+    // Test alternative path formats
+    console.log("[Services] Alternative paths test:");
+    const basePaths = [
+      "/assets/",
+      "assets/", 
+      "./assets/",
+      import.meta.env.BASE_URL + "assets/"
+    ];
+    
+    // Choose one service image to test
+    const testImage = "ai-strategy.png";
+    basePaths.forEach((basePath, idx) => {
+      const fullPath = basePath + testImage;
+      console.log(`[Services] Path format ${idx}:`, fullPath);
+      
+      // Test if this path loads
+      const img = new Image();
+      img.onload = () => console.log(`✅ Service image format ${idx} loaded successfully:`, fullPath);
+      img.onerror = () => console.log(`❌ Service image format ${idx} failed to load:`, fullPath);
+      img.src = fullPath;
+    });
+    
+    // Check for capitalization variations
+    const capitalizationTests = [
+      "/assets/ai-strategy.png",
+      "/assets/AI-Strategy.png",
+      "/assets/Ai-Strategy.png",
+      "/assets/ai-Strategy.png",
+      "/Assets/ai-strategy.png"
+    ];
+    
+    capitalizationTests.forEach((path, idx) => {
+      console.log(`[Services] Capitalization test ${idx}:`, path);
+      const img = new Image();
+      img.onload = () => console.log(`✅ Capitalization test ${idx} loaded successfully:`, path);
+      img.onerror = () => console.log(`❌ Capitalization test ${idx} failed to load:`, path);
+      img.src = path;
+    });
   }, []);
 
   // Removed local scrollToSection function, using imported utility

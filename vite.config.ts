@@ -8,6 +8,8 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 const __dirname = path.resolve();
 
 export default defineConfig({
+  // Explicitly set the base URL to ensure assets are loaded correctly
+  base: '/',
   server: {
     port: 3001,
     strictPort: false,
