@@ -1,6 +1,7 @@
 import { BrainCircuit, Bot, Workflow, BarChart3 } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
+import { useEffect } from "react";
 
 export default function ServicesSection() {
   const { theme } = useTheme();
@@ -31,6 +32,13 @@ export default function ServicesSection() {
       image: "/assets/prompt-engineering.png"
     }
   ];
+
+  useEffect(() => {
+    console.log("[Services] VITE_BASE_URL:", import.meta.env.BASE_URL);
+    services.forEach((service, index) => {
+      console.log(`[Services ${index}] Using image path:`, service.image);
+    });
+  }, []);
 
   // Removed local scrollToSection function, using imported utility
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "@/lib/theme-context";
 import { scrollToSection } from "@/lib/utils";
 import { ArrowRight, X } from "lucide-react";
@@ -13,6 +13,13 @@ export default function Hero() {
     company: "",
     message: ""
   });
+  
+  const heroImagePath = "/assets/hero-image.png";
+
+  useEffect(() => {
+    console.log("[Hero] VITE_BASE_URL:", import.meta.env.BASE_URL);
+    console.log("[Hero] Using image path:", heroImagePath);
+  }, []);
   
   const handleOpenForm = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -57,7 +64,7 @@ export default function Hero() {
       {/* Full-screen background image */}
       <div className="absolute inset-0 w-full h-full">
         <img 
-          src="/assets/hero-image.png"
+          src={heroImagePath}
           alt="AI Neural Network Visualization" 
           className="w-full h-full object-cover object-center"
         />
